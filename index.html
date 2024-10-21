@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mind Map with Copy-Paste Feature</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/gojs"></script>
+  <style>
+    #myDiagramDiv {
+      width: 100%;
+      height: calc(100vh - 210px);  /* Set height to fill the viewport minus 210px */
+      border: 1px solid black;
+    }
+    .modal-body {
+      max-height: 80vh;  /* Set max height for the modal body */
+      overflow-y: auto;  /* Enable vertical scrolling */
+    }
+    .bg-custom {
+      background-color: #f7f7f7;  /* Light background for better contrast */
+    }
+  </style>
+</head>
+<body>
+
+<div class="container mt-4">
+  <h1 class="text-center">Mind Map with Copy-Paste Feature</h1>
+  
+  <div id="myDiagramDiv"></div>
+
+  <!-- Color picker to change node color -->
+  <div class="mb-3">
+    <input type="color" id="colorPicker" value="#ffffff" class="form-control">
+    <label for="colorPicker" class="form-label">Change Node Color</label>
+  </div>
+
+  <!-- Import/Export and Auto Layout Buttons -->
+  <div class="mb-3">
+    <button id="exportButton" class="btn btn-primary">Export JSON</button>
+    <button id="importButton" class="btn btn-secondary">Import JSON</button>
+    <button id="autoLayoutButton" class="btn btn-info">Auto Layout</button>
+    <input type="file" id="importFile" style="display:none;">
+    <button id="userDocumentationButton" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#userDocModal">User Documentation</button>
+  </div>
+
+  <!-- Textarea to show exported JSON -->
+  <textarea id="jsonOutput" rows="10" class="form-control" style="display: none;"></textarea>
+</div>
+
+<!-- User Documentation Modal -->
+<div class="modal fade" id="userDocModal" tabindex="-1" aria-labelledby="userDocModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userDocModalLabel">User Documentation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body bg-custom">
+        <!-- Accordion for features documentation -->
+        <div class="accordion" id="featuresAccordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingNodeManagement">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeManagement" aria-expanded="true" aria-controls="collapseNodeManagement">
+                Node Management
+              </button>
+            </h2>
+            <div id="collapseNodeManagement" class="accordion-collapse collapse show" aria-labelledby="headingNodeManagement" data-bs-parent="#featuresAccordion">
+              <div class="accordion-body">
+                <ul>
+                  <li><strong>Create Nodes</strong>: Add new nodes to your mind map.
+                    <ul>
+                      <li><strong>Tab</strong>: Add a new sibling node after the selected node.</li>
+                      <li><strong>Shift + Tab</strong>: Add a new sibling node before the selected node.</li>
+                      <li><strong>Enter</strong>: Add a child node to the selected node.</li>
+                    </ul>
+                  </li>
+                  <li><strong>Edit Nodes</strong>:
+                    <ul>
+                      <li><strong>Double-click</strong> on the node text to edit the node's name.</li>
+                      <li><strong>F4</strong>: Start editing the number field of the selected node.</li>
+                    </ul>
+                  </li>
+                  <li><strong>Delete Nodes</strong>: 
+                    <ul>
+                      <li><strong>Delete</strong>: Remove the selected node and all its child nodes.</li>
+                      <li><strong>Root Node Protection</strong>: The root node cannot be deleted.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingNodeNavigation">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeNavigation" aria-expanded="true" aria-controls="collapseNodeNavigation">
+                Node Navigation
+              </button>
+            </h2>
+            <div id="collapseNodeNavigation" class="accordion-collapse collapse show" aria-labelledby="headingNodeNavigation" data-bs-parent="#featuresAccordion">
+              <div class="accordion-body">
+                <ul>
+                  <li><strong>Arrow Keys</strong>:
+                    <ul>
+                      <li><strong>Arrow Up</strong>: Navigate to the parent of the selected node.</li>
+                      <li><strong>Arrow Down</strong>: Navigate to the first child of the selected node.</li>
+                      <li><strong>Arrow Left</strong>: Move to the previous sibling of the selected node.</li>
+                      <li><strong>Arrow Right</strong>: Move to the next sibling of the selected node.</li>
+                    </ul>
+                  </li>
+                  <li><strong>Shift + Arrow Keys</strong>:
+                    <ul>
+                      <li><strong>Shift + Left Arrow</strong>: Select the previous sibling node.</li>
+                      <li><strong>Shift + Right Arrow</strong>: Select the next sibling node.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingNodeColorManagement">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeColorManagement" aria-expanded="true" aria-controls="collapseNodeColorManagement">
+                Node Color Management
+              </button>
+            </h2>
+            <div id="collapseNodeColorManagement" class="accordion-collapse collapse show" aria-labelledby="headingNodeColorManagement" data-bs-parent="#featuresAccordion">
+              <div class="accordion-body">
+                <ul>
+                  <li><strong>Change Node Color</strong>: 
+                    <ul>
+                      <li>Use the color picker to select a color. The selected color will apply to all selected nodes.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingStatusManagement">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStatusManagement" aria-expanded="true" aria-controls="collapseStatusManagement">
+                Status Management
+              </button>
+            </h2>
+            <div id="collapseStatusManagement" class="accordion-collapse collapse show" aria-labelledby="headingStatusManagement" data-bs-parent="#featuresAccordion">
+              <div class="accordion-body">
+                <ul>
+                  <li><strong>Status Selection</strong>: Each node has a status that can be changed using radio buttons.</li>
+                  <li><strong>Cycle Status</strong>: 
+                    <ul>
+                      <li><strong>F8</strong>: Cycle through statuses in the order: Not Started → In Progress → Completed → Blocker → Not Started.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingCopyPaste">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCopyPaste" aria-expanded="true" aria-controls="collapseCopyPaste">
+                Copy & Paste Functionality
+              </button>
+            </h2>
+            <div id="collapseCopyPaste" class="accordion-collapse collapse show" aria-labelledby="headingCopyPaste" data-bs-parent="#featuresAccordion">
+              <div class="accordion-body">
+                <ul>
+                  <li><strong>Copy Node</strong>: 
+                    <ul>
+                      <li><strong>Ctrl + C</strong>: Copy the selected node and its subtree.</li>
+                    </ul>
+                  </li>
+                  <li><strong>Paste Node</strong>: 
+                    <ul>
+                      <li><strong>Ctrl + V</strong>: Paste the copied node as a sibling of the currently selected node.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingExportImport">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExportImport" aria-expanded="true" aria-controls="collapseExportImport">
+                Export and Import
+              </button>
+            </h2>
+            <div id="collapseExportImport" class="accordion-collapse collapse show" aria-labelledby="headingExportImport" data-bs-parent="#featuresAccordion">
+              <div class="accordion-body">
+                <ul>
+                  <li><strong>Export JSON</strong>: 
+                    <ul>
+                      <li>Click the "Export JSON" button to download the current mind map as a JSON file.</li>
+                    </ul>
+                  </li>
+                  <li><strong>Import JSON</strong>: 
+                    <ul>
+                      <li>Click the "Import JSON" button to upload a JSON file and load the diagram.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingAutoLayout">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAutoLayout" aria-expanded="true" aria-controls="collapseAutoLayout">
+                Auto Layout
+              </button>
+            </h2>
+            <div id="collapseAutoLayout" class="accordion-collapse collapse show" aria-labelledby="headingAutoLayout" data-bs-parent="#featuresAccordion">
+              <div class="accordion-body">
+                <ul>
+                  <li><strong>Auto Layout Button</strong>: 
+                    <ul>
+                      <li>Click the "Auto Layout" button to automatically arrange the nodes in a clean layout.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Keyboard Shortcuts Tab -->
+        <div class="tab-content" id="userDocTabsContent">
+          <div class="tab-pane fade" id="shortcuts" role="tabpanel" aria-labelledby="shortcuts-tab">
+            <h3>Keyboard Shortcuts</h3>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Shortcut</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Tab</strong></td>
+                  <td>Add a sibling node after the selected node.</td>
+                </tr>
+                <tr>
+                  <td><strong>Shift + Tab</strong></td>
+                  <td>Add a sibling node before the selected node.</td>
+                </tr>
+                <tr>
+                  <td><strong>Enter</strong></td>
+                  <td>Add a child node to the selected node.</td>
+                </tr>
+                <tr>
+                  <td><strong>Delete</strong></td>
+                  <td>Delete the selected node and all its child nodes.</td>
+                </tr>
+                <tr>
+                  <td><strong>Arrow Up</strong></td>
+                  <td>Navigate to the parent of the selected node.</td>
+                </tr>
+                <tr>
+                  <td><strong>Arrow Down</strong></td>
+                  <td>Navigate to the first child of the selected node.</td>
+                </tr>
+                <tr>
+                  <td><strong>Arrow Left</strong></td>
+                  <td>Move to the previous sibling node.</td>
+                </tr>
+                <tr>
+                  <td><strong>Arrow Right</strong></td>
+                  <td>Move to the next sibling node.</td>
+                </tr>
+                <tr>
+                  <td><strong>Shift + Left Arrow</strong></td>
+                  <td>Select the previous sibling node.</td>
+                </tr>
+                <tr>
+                  <td><strong>Shift + Right Arrow</strong></td>
+                  <td>Select the next sibling node.</td>
+                </tr>
+                <tr>
+                  <td><strong>Ctrl + C</strong></td>
+                  <td>Copy the selected node.</td>
+                </tr>
+                <tr>
+                  <td><strong>Ctrl + V</strong></td>
+                  <td>Paste the copied node as a sibling of the selected node.</td>
+                </tr>
+                <tr>
+                  <td><strong>F2</strong></td>
+                  <td>Start editing the text of the selected node.</td>
+                </tr>
+                <tr>
+                  <td><strong>F4</strong></td>
+                  <td>Start editing the number field of the selected node.</td>
+                </tr>
+                <tr>
+                  <td><strong>F8</strong></td>
+                  <td>Cycle through the statuses of the selected node.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Mind map setup code here...
+  const $ = go.GraphObject.make;  // shortcut for creating GoJS objects
+
+  const myDiagram = $(go.Diagram, "myDiagramDiv", {
+    "undoManager.isEnabled": true,  // enable undo & redo
+    layout: $(go.TreeLayout, {
+      angle: 90,  // vertical layout
+      arrangement: go.TreeLayout.ArrangementHorizontal
+    }),
+    "ModelChanged": function(e) {  // Model change event
+      if (e.isTransactionFinished) {
+        updateColorPicker();  // Update color picker when the selection changes
+        calculateTotals();  // Recalculate totals whenever the diagram is updated
+      }
+    }
+  });
+
+  // Define the node template with enhanced design and shadow simulation
+  myDiagram.nodeTemplate =
+    $(go.Node, "Auto",
+      { deletable: true },  // Enable deletion for the node
+      $(go.Panel, "Spot",  // Use "Spot" panel to layer shapes and simulate shadow
+        $(go.Shape, "RoundedRectangle",  // Shadow shape
+          {
+            fill: "#ffffff",  // Shadow color changed to white
+            stroke: null,  // No stroke for the shadow
+            desiredSize: new go.Size(150, NaN),  // Set the size of the shadow
+            alignment: new go.Spot(0.5, 0.5, 4, 4),  // Offset the shadow slightly
+          }),
+        $(go.Panel, "Auto",
+          $(go.Shape, "RoundedRectangle", { 
+              fill: "#FFFFFF", 
+              stroke: "#D3D3D3", 
+              strokeWidth: 2, 
+              parameter1: 10  // Rounded corners
+          }, 
+          new go.Binding("fill", "color").makeTwoWay()),  // Binding color to the data model
+          $(go.Panel, "Vertical",
+            $(go.Panel, "Auto",
+              $(go.Shape, "RoundedRectangle", { fill: "#F0F0F0", stroke: null }),
+              $(go.TextBlock, 
+                {
+                  margin: 8,
+                  font: "bold 14px sans-serif",
+                  editable: true,  // Enable in-place text editing for name
+                  isMultiline: false  // Single-line editing
+                },
+                new go.Binding("text", "name").makeTwoWay())  // Two-way binding to enable updates for name
+            ),
+            $(go.Panel, "Auto",
+              $(go.TextBlock, 
+                {
+                  margin: 8,
+                  font: "12px sans-serif",
+                  editable: true,  // Enable editing for the number
+                  isMultiline: false,  // Single-line number editing
+                  stroke: "#606060",
+                  name: "NUMBER_FIELD"  // Assign a name to the number field for easy reference
+                },
+                new go.Binding("text", "number").makeTwoWay())  // Two-way binding to enable number updates
+            ),
+            $(go.TextBlock, 
+              { margin: new go.Margin(8, 0, 8, 0), font: "italic 12px sans-serif", stroke: "#606060" },
+              new go.Binding("text", "total")),  // Display the calculated subtotal/total
+            $(go.Panel, "Horizontal",  // Only radio buttons for status selection
+              { margin: new go.Margin(8, 0, 8, 0), defaultAlignment: go.Spot.Left },
+              createCustomRadioButton("Not Started", "blue"),
+              createCustomRadioButton("InProgress", "orange"),  // Changed from yellow to orange
+              createCustomRadioButton("Completed", "green"),
+              createCustomRadioButton("Blocker", "red")
+            )
+          )
+        )
+      )
+    );
+
+  // Helper function to create a custom radio button for the status selection
+  function createCustomRadioButton(statusValue, color) {
+    return $(go.Panel, "Horizontal",
+      $(go.Shape, "Circle",
+        {
+          width: 12, height: 12, margin: new go.Margin(0, 2),
+          stroke: color, strokeWidth: 2,  // Stroke is the assigned color
+          fill: "white",  // Initially unselected (white)
+          click: function(e, obj) { updateStatus(obj.part, statusValue); }
+        },
+        // Binding fill color based on selection, solid fill if selected, otherwise white fill
+        new go.Binding("fill", "status", function(s) { return s === statusValue ? color : "white"; }).makeTwoWay()
+      )
+    );
+  }
+
+  // Function to update status on custom radio button selection
+  function updateStatus(node, status) {
+    myDiagram.model.setDataProperty(node.data, "status", status);
+  }
+
+  // Function to copy the selected node and its subtree
+  function copyNode() {
+    const selectedNode = myDiagram.selection.first();
+    if (selectedNode !== null) {
+      copiedData = myDiagram.model.copyNodeData(selectedNode.data);
+      copiedData.children = [];  // Initialize children array
+
+      // Recursively copy children data
+      selectedNode.findTreeChildrenNodes().each(function(childNode) {
+        const childData = myDiagram.model.copyNodeData(childNode.data);
+        copiedData.children.push(copySubtree(childNode, childData));
+      });
+
+      console.log("Node copied:", copiedData);
+    }
+  }
+
+  // Recursive function to copy a subtree (node and its children)
+  function copySubtree(node, data) {
+    const newData = myDiagram.model.copyNodeData(data);
+    newData.key = generateUniqueId();  // Assign a new key to the copied node
+
+    node.findTreeChildrenNodes().each(function(childNode) {
+      const childData = myDiagram.model.copyNodeData(childNode.data);
+      newData.children = newData.children || [];
+      newData.children.push(copySubtree(childNode, childData));
+    });
+
+    return newData;
+  }
+
+  // Function to paste the copied node as a sibling of the currently selected node
+  function pasteNode() {
+    const selectedNode = myDiagram.selection.first();
+    if (selectedNode !== null && copiedData !== null) {
+      const parentNode = selectedNode.findTreeParentNode();
+      if (parentNode !== null) {
+        const newNodeData = { ...copiedData, key: generateUniqueId(), parent: parentNode.data.key };  // New key and assign parent
+
+        // Add the node to the diagram's model
+        myDiagram.model.addNodeData(newNodeData);
+
+        // If the node has children, add them to the diagram
+        if (newNodeData.children) {
+          newNodeData.children.forEach(child => {
+            child.parent = newNodeData.key;  // Set the parent key
+            myDiagram.model.addNodeData(child);
+            addSubtreeToDiagram(child);
+          });
+        }
+
+        console.log("Node pasted:", newNodeData);
+        myDiagram.select(myDiagram.findNodeForData(newNodeData));  // Select the pasted node
+      }
+    }
+  }
+
+  // Recursive function to add a subtree to the diagram
+  function addSubtreeToDiagram(nodeData) {
+    if (nodeData.children) {
+      nodeData.children.forEach(child => {
+        child.parent = nodeData.key;  // Assign parent key
+        myDiagram.model.addNodeData(child);
+        addSubtreeToDiagram(child);  // Recursively add child nodes
+      });
+    }
+  }
+
+  // Define a simple tree model with unique id (key), name, number, and status
+  myDiagram.model = new go.TreeModel([
+    { key: "1", name: "Root", number: 100, color: "#ADD8E6", status: "Not Started" },  // lightblue
+    { key: "2", parent: "1", name: "Child 1", number: 50, color: "#90EE90", status: "InProgress" },  // lightgreen
+    { key: "3", parent: "1", name: "Child 2", number: 30, color: "#90EE90", status: "Completed" },  // lightgreen
+  ]);
+
+  // Function to update the color picker based on the selected node's color
+  function updateColorPicker() {
+    const selectedNode = myDiagram.selection.first();
+    if (selectedNode !== null) {
+      const colorPicker = document.getElementById("colorPicker");
+      colorPicker.value = selectedNode.data.color;  // Update color picker to match node color
+    }
+  }
+
+  // Function to change the color of all selected nodes
+  document.getElementById("colorPicker").addEventListener("input", function(event) {
+    const newColor = event.target.value;
+    myDiagram.selection.each(node => {
+      myDiagram.model.setDataProperty(node.data, "color", newColor);  // Update the color for each selected node
+    });
+  });
+
+  // Export JSON
+  document.getElementById("exportButton").addEventListener("click", function() {
+    const json = myDiagram.model.toJson();  // Get diagram as JSON
+    const blob = new Blob([json], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    
+    // Create a temporary download link
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "diagram.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    // Display JSON in textarea for user to see
+    const jsonOutput = document.getElementById("jsonOutput");
+    jsonOutput.value = json;
+    jsonOutput.style.display = "block";  // Show JSON in a textarea
+  });
+
+  // Handle importing JSON
+  document.getElementById("importButton").addEventListener("click", function() {
+    document.getElementById("importFile").click();
+  });
+
+  document.getElementById("importFile").addEventListener("change", function(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const json = e.target.result;
+        myDiagram.model = go.Model.fromJson(json);  // Import the JSON data into the diagram
+        calculateTotals();  // Recalculate totals after import
+      };
+      reader.readAsText(file);
+    }
+  });
+
+  // Auto Layout button functionality
+  document.getElementById("autoLayoutButton").addEventListener("click", function() {
+    myDiagram.layoutDiagram(true);  // Apply auto layout to the diagram
+  });
+
+  // Override deleteSelection to delete the node and all its child nodes
+  myDiagram.commandHandler.deleteSelection = function() {
+    const selectedNode = myDiagram.selection.first();
+    if (selectedNode !== null) {
+      // Prevent deletion of the root node
+      if (selectedNode.data.key === "1") {  // Assuming the root has key "1"
+        alert("Root node cannot be deleted!");
+        return;  // Exit the function to prevent deletion
+      }
+
+      const previousNode = findPreviousNode(selectedNode);  // Find the previous node to select after deletion
+
+      // Remove the selected node and all of its child nodes using removeParts and findTreeParts
+      const subtree = selectedNode.findTreeParts();
+      myDiagram.removeParts(subtree);
+
+      if (previousNode !== null) {
+        myDiagram.select(previousNode);  // Select the previous node after deletion
+      }
+
+      calculateTotals();  // Recalculate totals after deletion
+    }
+  };
+
+  // Function to calculate totals and subtotals for each node
+  function calculateTotals() {
+    // Traverse the tree and calculate totals
+    myDiagram.nodes.each(function(node) {
+      const subtotal = calculateSubtotal(node);
+      myDiagram.model.setDataProperty(node.data, "total", "Total: " + subtotal);
+    });
+  }
+
+  // Function to calculate the subtotal (including children) for a node
+  function calculateSubtotal(node) {
+    let total = parseInt(node.data.number || 0);
+    node.findTreeChildrenNodes().each(function(childNode) {
+      total += calculateSubtotal(childNode);
+    });
+    return total;
+  }
+
+  // Function to find the previous node (sibling or parent) to select after deletion
+  function findPreviousNode(node) {
+    const parentNode = node.findTreeParentNode();
+    if (!parentNode) return null;
+
+    const siblings = parentNode.findTreeChildrenNodes();
+    let previousNode = null;
+    let currentNodeIndex = -1;
+    let index = 0;
+
+    // Iterate over the siblings to find the one just before the current node
+    siblings.each(function(sibling) {
+      if (sibling === node) {
+        currentNodeIndex = index;
+      } else if (currentNodeIndex === -1) {
+        previousNode = sibling;  // Set this as the previous node if we haven't reached the current node yet
+      }
+      index++;
+    });
+
+    return previousNode || parentNode;  // Return the previous sibling, or the parent if no sibling is found
+  }
+
+  // Add keyboard shortcut handlers
+  myDiagram.commandHandler.doKeyDown = function() {
+    const e = myDiagram.lastInput;
+
+    if (e.shift && e.key === "ArrowLeft") {
+      console.log("Shift + Left Arrow pressed");
+      selectPreviousSibling();  // Change selection to the previous sibling
+    } else if (e.shift && e.key === "ArrowRight") {
+      console.log("Shift + Right Arrow pressed");
+      selectNextSibling();  // Change selection to the next sibling
+    } else if (e.key === "c" && e.control) {
+      console.log("Copy pressed");
+      copyNode();  // Copy the selected node
+    } else if (e.key === "v" && e.control) {
+      console.log("Paste pressed");
+      pasteNode();  // Paste the copied node
+    } else if (e.key === "Tab") {
+      if (e.shift) {
+        addSiblingNode("before");  // Add sibling before the selected node (Shift+Tab)
+      } else {
+        addSiblingNode("after");  // Add sibling after the selected node (Tab)
+      }
+    } else if (e.key === "Enter") {
+      addChildNode();  // Add a child node when Enter is pressed
+    } else if (e.key === "Delete") {
+      myDiagram.commandHandler.deleteSelection();  // Delete the selected node
+    } else if (e.key === "ArrowLeft") {  // Replacing behavior of ArrowUp
+      navigateTree("up");
+    } else if (e.key === "ArrowRight") {  // Replacing behavior of ArrowDown
+      navigateTree("down");
+    } else if (e.key === "ArrowUp") {  // Replacing behavior of ArrowLeft
+      navigateTree("left");
+    } else if (e.key === "ArrowDown") {  // Replacing behavior of ArrowRight
+      navigateTree("right");
+    } else if (e.key === "F2") {
+      startEditingText();  // Start editing the text of the selected node
+    } else if (e.key === "F4") {
+      startEditingNumber();  // Start editing the number field when F4 is pressed
+    } else if (e.key === "F8") {
+      cycleStatus();  // Change status when F8 is pressed
+    } else {
+      go.CommandHandler.prototype.doKeyDown.call(this);
+    }
+  };
+
+  // Function to select the previous sibling
+  function selectPreviousSibling() {
+    const selectedNode = myDiagram.selection.first();
+    if (selectedNode !== null) {
+      const parentNode = selectedNode.findTreeParentNode();
+      if (parentNode !== null) {
+        const siblings = [];
+        parentNode.findTreeChildrenNodes().each(sibling => siblings.push(sibling));
+        const selectedIndex = siblings.indexOf(selectedNode);
+        
+        if (selectedIndex > 0) {
+          const previousSibling = siblings[selectedIndex - 1];
+          myDiagram.select(previousSibling);
+          myDiagram.scrollToRect(previousSibling.actualBounds);  // Ensure the sibling is visible in view
+        }
+      }
+    }
+  }
+
+  // Function to select the next sibling
+  function selectNextSibling() {
+    const selectedNode = myDiagram.selection.first();
+    if (selectedNode !== null) {
+      const parentNode = selectedNode.findTreeParentNode();
+      if (parentNode !== null) {
+        const siblings = [];
+        parentNode.findTreeChildrenNodes().each(sibling => siblings.push(sibling));
+        const selectedIndex = siblings.indexOf(selectedNode);
+        
+        if (selectedIndex < siblings.length - 1) {
+          const nextSibling = siblings[selectedIndex + 1];
+          myDiagram.select(nextSibling);
+          myDiagram.scrollToRect(nextSibling.actualBounds);  // Ensure the sibling is visible in view
+        }
+      }
+    }
+  }
+
+  // Function to start editing the number field when F4 is pressed
+  function startEditingNumber() {
+    const selectedNode = myDiagram.selection.first();
+    if (selectedNode !== null) {
+      const numberField = selectedNode.findObject("NUMBER_FIELD");  // Reference the number field by its name
+      if (numberField !== null) {
+        myDiagram.commandHandler.editTextBlock(numberField);  // Start editing the number field
+      }
+    }
+  }
+
+  // Function to cycle through statuses when F8 is pressed
+  function cycleStatus() {
+    const selectedNode = myDiagram.selection.first();
+    if (selectedNode !== null) {
+      const currentStatus = selectedNode.data.status;
+      let nextStatus = "Not Started";  // Default to "Not Started"
+      
+      if (currentStatus === "Not Started") {
+        nextStatus = "InProgress";
+      } else if (currentStatus === "InProgress") {
+        nextStatus = "Completed";
+      } else if (currentStatus === "Completed") {
+        nextStatus = "Blocker";
+      } else if (currentStatus === "Blocker") {
+        nextStatus = "Not Started";
+      }
+
+      console.log("Cycling status to: ", nextStatus);  // Debugging log
+      myDiagram.model.setDataProperty(selectedNode.data, "status", nextStatus);  // Update the status
+    }
+  }
+
+  // Function to add a sibling node to the selected node, position can be 'before' or 'after'
+  function addSiblingNode(position) {
+    const selectedNode = myDiagram.selection.first();
+    if (selectedNode !== null) {
+      const parentNode = selectedNode.findTreeParentNode();
+      if (parentNode !== null) {
+        const newNodeData = { key: generateUniqueId(), name: "New Sibling", number: 0, color: "#FFFFE0", status: "Not Started", parent: parentNode.data.key };  // lightyellow
+        
+        const siblingArray = [];
+        parentNode.findTreeChildrenNodes().each(sibling => siblingArray.push(sibling.data));
+
+        const selectedIndex = siblingArray.findIndex(s => s.key === selectedNode.data.key);
+        
+        if (position === "after") {
+          siblingArray.splice(selectedIndex + 1, 0, newNodeData);  // Insert after the selected node
+        } else {
+          siblingArray.splice(selectedIndex, 0, newNodeData);  // Insert before the selected node
+        }
+
+        // Add the new sibling node to the diagram's model
+        myDiagram.model.addNodeData(newNodeData);
+
+        // Select the new sibling node
+        myDiagram.select(myDiagram.findNodeForData(newNodeData));
+
+        calculateTotals();  // Recalculate totals after adding a new sibling
+      }
+    }
+  }
+
+  // Function to add a child node to the selected node
+  function addChildNode() {
+    const selectedNode = myDiagram.selection.first();
+    if (selectedNode !== null) {
+      const newNodeData = { key: generateUniqueId(), name: "New Child", number: 0, color: "#FFFFE0", status: "Not Started", parent: selectedNode.data.key };  // lightyellow
+      myDiagram.model.addNodeData(newNodeData);
+      myDiagram.select(myDiagram.findNodeForData(newNodeData));  // Select the new child node
+      calculateTotals();  // Recalculate totals after adding a new child
+    }
+  }
+
+  // Generate a unique ID for each node
+  function generateUniqueId() {
+    return Math.random().toString(36).substr(2, 9);  // Generate a simple unique ID
+  }
+
+  // Function to start editing text for the selected node
+  function startEditingText() {
+    const selectedNode = myDiagram.selection.first();
+    if (selectedNode !== null) {
+      myDiagram.commandHandler.editTextBlock();
+    }
+  }
+
+  // Function to navigate between nodes using arrow keys
+  function navigateTree(direction) {
+    const selectedNode = myDiagram.selection.first();
+    if (!selectedNode) return;
+
+    let nextNode;
+    if (direction === "up" || direction === "down") {
+      nextNode = findVerticalNeighbor(selectedNode, direction);
+    } else if (direction === "left") {
+      nextNode = selectedNode.findTreeParentNode();
+    } else if (direction === "right") {
+      nextNode = selectedNode.findTreeChildrenNodes().first();
+    }
+
+    if (nextNode) {
+      myDiagram.select(nextNode);
+    }
+  }
+
+  // Function to find the vertical neighbor (above/below) of the current node
+  function findVerticalNeighbor(node, direction) {
+    const parentNode = node.findTreeParentNode();
+    if (!parentNode) return null;
+
+    const siblings = parentNode.findTreeChildrenNodes();
+    let index = 0;
+    let currentNodeIndex = -1;
+    let targetNode = null;
+
+    siblings.each(function(sibling) {
+      if (sibling === node) {
+        currentNodeIndex = index;
+      }
+      index++;
+    });
+
+    if (direction === "up" && currentNodeIndex > 0) {
+      targetNode = getSiblingAtIndex(siblings, currentNodeIndex - 1);
+    } else if (direction === "down" && currentNodeIndex < index - 1) {
+      targetNode = getSiblingAtIndex(siblings, currentNodeIndex + 1);
+    }
+    return targetNode;
+  }
+
+  // Helper function to get the sibling node at the given index
+  function getSiblingAtIndex(siblings, targetIndex) {
+    let currentIndex = 0;
+    let targetNode = null;
+    siblings.each(function(sibling) {
+      if (currentIndex === targetIndex) {
+        targetNode = sibling;
+      }
+      currentIndex++;
+    });
+    return targetNode;
+  }
+
+  // Function to collapse the subtree of the selected node
+  function collapseTree() {
+    const selectedNode = myDiagram.selection.first();
+    if (selectedNode !== null) {
+      selectedNode.collapseTree(1);  // Collapse the subtree starting from the selected node
+    }
+  }
+
+  // Function to expand the subtree of the selected node
+  function expandTree() {
+    const selectedNode = myDiagram.selection.first();
+    if (selectedNode !== null) {
+      selectedNode.expandTree(1);  // Expand the subtree starting from the selected node
+    }
+  }
+
+</script>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
