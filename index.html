@@ -48,267 +48,283 @@
 </div>
 
 <!-- User Documentation Modal -->
+<!-- User Documentation Modal -->
 <div class="modal fade" id="userDocModal" tabindex="-1" aria-labelledby="userDocModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="userDocModalLabel">User Documentation</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body bg-custom">
-        <!-- Accordion for features documentation -->
-        <div class="accordion" id="featuresAccordion">
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingNodeManagement">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeManagement" aria-expanded="true" aria-controls="collapseNodeManagement">
-                Node Management
-              </button>
-            </h2>
-            <div id="collapseNodeManagement" class="accordion-collapse collapse show" aria-labelledby="headingNodeManagement" data-bs-parent="#featuresAccordion">
-              <div class="accordion-body">
-                <ul>
-                  <li><strong>Create Nodes</strong>: Add new nodes to your mind map.
-                    <ul>
-                      <li><strong>Tab</strong>: Add a new sibling node after the selected node.</li>
-                      <li><strong>Shift + Tab</strong>: Add a new sibling node before the selected node.</li>
-                      <li><strong>Enter</strong>: Add a child node to the selected node.</li>
-                    </ul>
-                  </li>
-                  <li><strong>Edit Nodes</strong>:
-                    <ul>
-                      <li><strong>Double-click</strong> on the node text to edit the node's name.</li>
-                      <li><strong>F4</strong>: Start editing the number field of the selected node.</li>
-                    </ul>
-                  </li>
-                  <li><strong>Delete Nodes</strong>: 
-                    <ul>
-                      <li><strong>Delete</strong>: Remove the selected node and all its child nodes.</li>
-                      <li><strong>Root Node Protection</strong>: The root node cannot be deleted.</li>
-                    </ul>
-                  </li>
-                </ul>
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="userDocModalLabel">User Documentation</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body bg-custom">
+          <!-- Tabs for documentation sections -->
+          <ul class="nav nav-tabs" id="userDocTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="features-tab" data-bs-toggle="tab" data-bs-target="#features" type="button" role="tab" aria-controls="features" aria-selected="true">Features</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="shortcuts-tab" data-bs-toggle="tab" data-bs-target="#shortcuts" type="button" role="tab" aria-controls="shortcuts" aria-selected="false">Keyboard Shortcuts</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="conclusion-tab" data-bs-toggle="tab" data-bs-target="#conclusion" type="button" role="tab" aria-controls="conclusion" aria-selected="false">Conclusion</button>
+            </li>
+          </ul>
+          <div class="tab-content p-2 bg-white border border-top-0" id="userDocTabsContent">
+            <div class="tab-pane fade show active" id="features" role="tabpanel" aria-labelledby="features-tab">
+              <div class="accordion" id="featuresAccordion">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingNodeManagement">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeManagement" aria-expanded="true" aria-controls="collapseNodeManagement">
+                      Node Management
+                    </button>
+                  </h2>
+                  <div id="collapseNodeManagement" class="accordion-collapse collapse show" aria-labelledby="headingNodeManagement" data-bs-parent="#featuresAccordion">
+                    <div class="accordion-body">
+                      <ul>
+                        <li><strong>Create Nodes</strong>: Add new nodes to your mind map.
+                          <ul>
+                            <li><strong>Tab</strong>: Add a new sibling node after the selected node.</li>
+                            <li><strong>Shift + Tab</strong>: Add a new sibling node before the selected node.</li>
+                            <li><strong>Enter</strong>: Add a child node to the selected node.</li>
+                          </ul>
+                        </li>
+                        <li><strong>Edit Nodes</strong>:
+                          <ul>
+                            <li><strong>Double-click</strong> on the node text to edit the node's name.</li>
+                            <li><strong>F4</strong>: Start editing the number field of the selected node.</li>
+                          </ul>
+                        </li>
+                        <li><strong>Delete Nodes</strong>: 
+                          <ul>
+                            <li><strong>Delete</strong>: Remove the selected node and all its child nodes.</li>
+                            <li><strong>Root Node Protection</strong>: The root node cannot be deleted.</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingNodeNavigation">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeNavigation" aria-expanded="true" aria-controls="collapseNodeNavigation">
+                      Node Navigation
+                    </button>
+                  </h2>
+                  <div id="collapseNodeNavigation" class="accordion-collapse collapse show" aria-labelledby="headingNodeNavigation" data-bs-parent="#featuresAccordion">
+                    <div class="accordion-body">
+                      <ul>
+                        <li><strong>Arrow Keys</strong>:
+                          <ul>
+                            <li><strong>Arrow Up</strong>: Navigate to the parent of the selected node.</li>
+                            <li><strong>Arrow Down</strong>: Navigate to the first child of the selected node.</li>
+                            <li><strong>Arrow Left</strong>: Move to the previous sibling of the selected node.</li>
+                            <li><strong>Arrow Right</strong>: Move to the next sibling of the selected node.</li>
+                          </ul>
+                        </li>
+                        <li><strong>Shift + Arrow Keys</strong>:
+                          <ul>
+                            <li><strong>Shift + Left Arrow</strong>: Select the previous sibling node.</li>
+                            <li><strong>Shift + Right Arrow</strong>: Select the next sibling node.</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingNodeColorManagement">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeColorManagement" aria-expanded="true" aria-controls="collapseNodeColorManagement">
+                      Node Color Management
+                    </button>
+                  </h2>
+                  <div id="collapseNodeColorManagement" class="accordion-collapse collapse show" aria-labelledby="headingNodeColorManagement" data-bs-parent="#featuresAccordion">
+                    <div class="accordion-body">
+                      <ul>
+                        <li><strong>Change Node Color</strong>: 
+                          <ul>
+                            <li>Use the color picker to select a color. The selected color will apply to all selected nodes.</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingStatusManagement">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStatusManagement" aria-expanded="true" aria-controls="collapseStatusManagement">
+                      Status Management
+                    </button>
+                  </h2>
+                  <div id="collapseStatusManagement" class="accordion-collapse collapse show" aria-labelledby="headingStatusManagement" data-bs-parent="#featuresAccordion">
+                    <div class="accordion-body">
+                      <ul>
+                        <li><strong>Status Selection</strong>: Each node has a status that can be changed using radio buttons.</li>
+                        <li><strong>Cycle Status</strong>: 
+                          <ul>
+                            <li><strong>F8</strong>: Cycle through statuses in the order: Not Started → In Progress → Completed → Blocker → Not Started.</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingCopyPaste">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCopyPaste" aria-expanded="true" aria-controls="collapseCopyPaste">
+                      Copy & Paste Functionality
+                    </button>
+                  </h2>
+                  <div id="collapseCopyPaste" class="accordion-collapse collapse show" aria-labelledby="headingCopyPaste" data-bs-parent="#featuresAccordion">
+                    <div class="accordion-body">
+                      <ul>
+                        <li><strong>Copy Node</strong>: 
+                          <ul>
+                            <li><strong>Ctrl + C</strong>: Copy the selected node and its subtree.</li>
+                          </ul>
+                        </li>
+                        <li><strong>Paste Node</strong>: 
+                          <ul>
+                            <li><strong>Ctrl + V</strong>: Paste the copied node as a sibling of the currently selected node.</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingExportImport">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExportImport" aria-expanded="true" aria-controls="collapseExportImport">
+                      Export and Import
+                    </button>
+                  </h2>
+                  <div id="collapseExportImport" class="accordion-collapse collapse show" aria-labelledby="headingExportImport" data-bs-parent="#featuresAccordion">
+                    <div class="accordion-body">
+                      <ul>
+                        <li><strong>Export JSON</strong>: 
+                          <ul>
+                            <li>Click the "Export JSON" button to download the current mind map as a JSON file.</li>
+                          </ul>
+                        </li>
+                        <li><strong>Import JSON</strong>: 
+                          <ul>
+                            <li>Click the "Import JSON" button to upload a JSON file and load the diagram.</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingAutoLayout">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAutoLayout" aria-expanded="true" aria-controls="collapseAutoLayout">
+                      Auto Layout
+                    </button>
+                  </h2>
+                  <div id="collapseAutoLayout" class="accordion-collapse collapse show" aria-labelledby="headingAutoLayout" data-bs-parent="#featuresAccordion">
+                    <div class="accordion-body">
+                      <ul>
+                        <li><strong>Auto Layout Button</strong>: 
+                          <ul>
+                            <li>Click the "Auto Layout" button to automatically arrange the nodes in a clean layout.</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingNodeNavigation">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeNavigation" aria-expanded="true" aria-controls="collapseNodeNavigation">
-                Node Navigation
-              </button>
-            </h2>
-            <div id="collapseNodeNavigation" class="accordion-collapse collapse show" aria-labelledby="headingNodeNavigation" data-bs-parent="#featuresAccordion">
-              <div class="accordion-body">
-                <ul>
-                  <li><strong>Arrow Keys</strong>:
-                    <ul>
-                      <li><strong>Arrow Up</strong>: Navigate to the parent of the selected node.</li>
-                      <li><strong>Arrow Down</strong>: Navigate to the first child of the selected node.</li>
-                      <li><strong>Arrow Left</strong>: Move to the previous sibling of the selected node.</li>
-                      <li><strong>Arrow Right</strong>: Move to the next sibling of the selected node.</li>
-                    </ul>
-                  </li>
-                  <li><strong>Shift + Arrow Keys</strong>:
-                    <ul>
-                      <li><strong>Shift + Left Arrow</strong>: Select the previous sibling node.</li>
-                      <li><strong>Shift + Right Arrow</strong>: Select the next sibling node.</li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
+  
+            <div class="tab-pane fade" id="shortcuts" role="tabpanel" aria-labelledby="shortcuts-tab">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Shortcut</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Tab</strong></td>
+                    <td>Add a sibling node after the selected node.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Shift + Tab</strong></td>
+                    <td>Add a sibling node before the selected node.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Enter</strong></td>
+                    <td>Add a child node to the selected node.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Delete</strong></td>
+                    <td>Delete the selected node and all its child nodes.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Arrow Up</strong></td>
+                    <td>Navigate to the parent of the selected node.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Arrow Down</strong></td>
+                    <td>Navigate to the first child of the selected node.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Arrow Left</strong></td>
+                    <td>Move to the previous sibling node.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Arrow Right</strong></td>
+                    <td>Move to the next sibling node.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Shift + Left Arrow</strong></td>
+                    <td>Select the previous sibling node.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Shift + Right Arrow</strong></td>
+                    <td>Select the next sibling node.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Ctrl + C</strong></td>
+                    <td>Copy the selected node.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Ctrl + V</strong></td>
+                    <td>Paste the copied node as a sibling of the selected node.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>F2</strong></td>
+                    <td>Start editing the text of the selected node.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>F4</strong></td>
+                    <td>Start editing the number field of the selected node.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>F8</strong></td>
+                    <td>Cycle through the statuses of the selected node.</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-          </div>
-
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingNodeColorManagement">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNodeColorManagement" aria-expanded="true" aria-controls="collapseNodeColorManagement">
-                Node Color Management
-              </button>
-            </h2>
-            <div id="collapseNodeColorManagement" class="accordion-collapse collapse show" aria-labelledby="headingNodeColorManagement" data-bs-parent="#featuresAccordion">
-              <div class="accordion-body">
-                <ul>
-                  <li><strong>Change Node Color</strong>: 
-                    <ul>
-                      <li>Use the color picker to select a color. The selected color will apply to all selected nodes.</li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingStatusManagement">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStatusManagement" aria-expanded="true" aria-controls="collapseStatusManagement">
-                Status Management
-              </button>
-            </h2>
-            <div id="collapseStatusManagement" class="accordion-collapse collapse show" aria-labelledby="headingStatusManagement" data-bs-parent="#featuresAccordion">
-              <div class="accordion-body">
-                <ul>
-                  <li><strong>Status Selection</strong>: Each node has a status that can be changed using radio buttons.</li>
-                  <li><strong>Cycle Status</strong>: 
-                    <ul>
-                      <li><strong>F8</strong>: Cycle through statuses in the order: Not Started → In Progress → Completed → Blocker → Not Started.</li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingCopyPaste">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCopyPaste" aria-expanded="true" aria-controls="collapseCopyPaste">
-                Copy & Paste Functionality
-              </button>
-            </h2>
-            <div id="collapseCopyPaste" class="accordion-collapse collapse show" aria-labelledby="headingCopyPaste" data-bs-parent="#featuresAccordion">
-              <div class="accordion-body">
-                <ul>
-                  <li><strong>Copy Node</strong>: 
-                    <ul>
-                      <li><strong>Ctrl + C</strong>: Copy the selected node and its subtree.</li>
-                    </ul>
-                  </li>
-                  <li><strong>Paste Node</strong>: 
-                    <ul>
-                      <li><strong>Ctrl + V</strong>: Paste the copied node as a sibling of the currently selected node.</li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingExportImport">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExportImport" aria-expanded="true" aria-controls="collapseExportImport">
-                Export and Import
-              </button>
-            </h2>
-            <div id="collapseExportImport" class="accordion-collapse collapse show" aria-labelledby="headingExportImport" data-bs-parent="#featuresAccordion">
-              <div class="accordion-body">
-                <ul>
-                  <li><strong>Export JSON</strong>: 
-                    <ul>
-                      <li>Click the "Export JSON" button to download the current mind map as a JSON file.</li>
-                    </ul>
-                  </li>
-                  <li><strong>Import JSON</strong>: 
-                    <ul>
-                      <li>Click the "Import JSON" button to upload a JSON file and load the diagram.</li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingAutoLayout">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAutoLayout" aria-expanded="true" aria-controls="collapseAutoLayout">
-                Auto Layout
-              </button>
-            </h2>
-            <div id="collapseAutoLayout" class="accordion-collapse collapse show" aria-labelledby="headingAutoLayout" data-bs-parent="#featuresAccordion">
-              <div class="accordion-body">
-                <ul>
-                  <li><strong>Auto Layout Button</strong>: 
-                    <ul>
-                      <li>Click the "Auto Layout" button to automatically arrange the nodes in a clean layout.</li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
+  
+            <div class="tab-pane fade" id="conclusion" role="tabpanel" aria-labelledby="conclusion-tab">
+              <p>This Mind Map Tool provides an intuitive way to create and manage mind maps with a variety of features and keyboard shortcuts. Whether you’re brainstorming ideas or organizing information, this tool can enhance your productivity and creativity.</p>
             </div>
           </div>
         </div>
-
-        <!-- Keyboard Shortcuts Tab -->
-        <div class="tab-content" id="userDocTabsContent">
-          <div class="tab-pane fade" id="shortcuts" role="tabpanel" aria-labelledby="shortcuts-tab">
-            <h3>Keyboard Shortcuts</h3>
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Shortcut</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Tab</strong></td>
-                  <td>Add a sibling node after the selected node.</td>
-                </tr>
-                <tr>
-                  <td><strong>Shift + Tab</strong></td>
-                  <td>Add a sibling node before the selected node.</td>
-                </tr>
-                <tr>
-                  <td><strong>Enter</strong></td>
-                  <td>Add a child node to the selected node.</td>
-                </tr>
-                <tr>
-                  <td><strong>Delete</strong></td>
-                  <td>Delete the selected node and all its child nodes.</td>
-                </tr>
-                <tr>
-                  <td><strong>Arrow Up</strong></td>
-                  <td>Navigate to the parent of the selected node.</td>
-                </tr>
-                <tr>
-                  <td><strong>Arrow Down</strong></td>
-                  <td>Navigate to the first child of the selected node.</td>
-                </tr>
-                <tr>
-                  <td><strong>Arrow Left</strong></td>
-                  <td>Move to the previous sibling node.</td>
-                </tr>
-                <tr>
-                  <td><strong>Arrow Right</strong></td>
-                  <td>Move to the next sibling node.</td>
-                </tr>
-                <tr>
-                  <td><strong>Shift + Left Arrow</strong></td>
-                  <td>Select the previous sibling node.</td>
-                </tr>
-                <tr>
-                  <td><strong>Shift + Right Arrow</strong></td>
-                  <td>Select the next sibling node.</td>
-                </tr>
-                <tr>
-                  <td><strong>Ctrl + C</strong></td>
-                  <td>Copy the selected node.</td>
-                </tr>
-                <tr>
-                  <td><strong>Ctrl + V</strong></td>
-                  <td>Paste the copied node as a sibling of the selected node.</td>
-                </tr>
-                <tr>
-                  <td><strong>F2</strong></td>
-                  <td>Start editing the text of the selected node.</td>
-                </tr>
-                <tr>
-                  <td><strong>F4</strong></td>
-                  <td>Start editing the number field of the selected node.</td>
-                </tr>
-                <tr>
-                  <td><strong>F8</strong></td>
-                  <td>Cycle through the statuses of the selected node.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
-</div>
 
 <script>
   // Mind map setup code here...
