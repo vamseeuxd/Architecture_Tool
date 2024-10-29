@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Angular (V15) Module Federation Training</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <style>
+        .menu_item .time {
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+            color: rgba(var(--bs-danger-rgb),var(--bs-bg-opacity))!important;
+        }
+        .menu_item {
+            min-height: 70px;
+        }
+        .bg-white.menu_item {
+            width: 359px;
+            z-index: 12;
+            border-right: 0px solid white !important;
+        }
+    </style>
+  </head>
+  <body class="bg-light">
+    <nav class="navbar bg-danger shadow-sm" data-bs-theme="dark">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1"
+          >Angular (V15) Module Federation Training</span
+        >
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="d-flex">
+        <ul class="list-group mt-2" style="width: 350px;">
+          <li role="button" class="bg-light rounded-0 menu_item position-relative list-group-item mb-2 d-flex justify-content-center shadow-sm border flex-column">
+            <p class="time">Start Time: 10:00 AM | End Time: 10:15 AM</p>
+            Introduction to Micro Frontends
+          </li>
+          <li role="button" class="bg-light rounded-0 menu_item position-relative list-group-item mb-2 d-flex justify-content-center shadow-sm border flex-column">
+            <p class="time">Start Time: 10:20 AM | End Time: 10:35 AM</p>
+            Introduction to Module Federation 
+          </li>
+          <li role="button" class="bg-light rounded-0 menu_item position-relative list-group-item mb-2 d-flex justify-content-center shadow-sm border flex-column">
+            <p class="time">Start Time: 10:40 AM | End Time: 10:55 AM</p>
+            Setup and Configuration
+          </li>
+          <li role="button" class="bg-light rounded-0 menu_item position-relative list-group-item mb-2 d-flex justify-content-center shadow-sm border flex-column">
+            <p class="time">Start Time: 11:00 AM | End Time: 11:15 AM</p>
+            Creating and Exposing a Remote Application
+          </li>
+          <li role="button" class="bg-light rounded-0 menu_item position-relative list-group-item mb-2 d-flex justify-content-center shadow-sm border flex-column">
+            <p class="time">Start Time: 11:20 AM | End Time: 11:35 AM</p>
+            Consuming Remote Modules in the Host Application
+          </li>
+          <li role="button" class="bg-light rounded-0 menu_item position-relative list-group-item mb-2 d-flex justify-content-center shadow-sm border flex-column">
+            <p class="time">Start Time: 11:40 AM | End Time: 11:55 AM</p>
+            Implementing Routing in Module Federation
+          </li>
+          <li role="button" class="bg-light rounded-0 menu_item position-relative list-group-item mb-2 d-flex justify-content-center shadow-sm border flex-column">
+            <p class="time">Start Time: 12:00 PM | End Time: 12:15 PM</p>
+            Sharing State and Services between Remote and Host
+          </li>
+          <li role="button" class="bg-light rounded-0 menu_item position-relative list-group-item mb-2 d-flex justify-content-center shadow-sm border flex-column">
+            <p class="time">Start Time: 12:20 PM | End Time: 12:35 PM</p>
+            Dependency Sharing and Version Conflicts
+          </li>
+          <li role="button" class="bg-light rounded-0 menu_item position-relative list-group-item mb-2 d-flex justify-content-center shadow-sm border flex-column">
+            <p class="time">Start Time: 12:40 PM | End Time: 12:55 PM</p>
+            Advanced Dynamic Module Federation Concepts
+          </li>
+          <li role="button" class="bg-light rounded-0 menu_item position-relative list-group-item mb-2 d-flex justify-content-center shadow-sm border flex-column">
+            <p class="time">Start Time: 1:00 PM | End Time: 1:30 PM</p>
+            Best Practices and Performance Considerations
+          </li>
+          <li role="button" class="bg-light rounded-0 menu_item position-relative list-group-item mb-2 d-flex justify-content-center shadow-sm border flex-column">
+            <p class="time">Start Time: 1:30 PM | End Time: 1:55 PM</p>
+            Hands-on Demo and Q&A
+          </li>
+        </ul>
+        <div class="col bg-white mt-2 ms-2 border shadow-sm" style="min-height: calc(100vh - 70px);">
+            
+            <div class="menu_content px-3 py-3 d-none"> 
+                <h5 class="text-muted border-bottom pb-2">Introduction to Micro Frontends</h5> 
+                <div class="list-group">
+    
+                    <div class="list-group-item">
+                        <video src="./MicroFrontends.mp4"  style="width: 250px;" controls></video>
+                    </div>
+                    <!-- Topic 1: What are Micro Frontends -->
+                    <div class="list-group-item">
+                        <h6>What are Micro Frontends?</h6>
+                        <p>
+                            Micro Frontends is an architectural style where a web application is split into smaller, independently deployable front-end applications that can be built, tested, and deployed separately.
+                            Each Micro Frontend represents a feature or module of the main application. These smaller units allow teams to work autonomously, reduce complexity, and speed up deployment cycles.
+                        </p>
+                    </div>
+    
+                    <!-- Topic 2: Why Micro Frontends -->
+                    <div class="list-group-item">
+                        <h6>Why Micro Frontends?</h6>
+                        <p>
+                            As front-end applications grow in size and complexity, the traditional monolithic approach can become hard to maintain. Micro Frontends enable multiple teams to work simultaneously on different parts of the app,
+                            reducing the overhead of large-scale codebases.
+                        </p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Scalability:</strong> Distribute development across multiple teams.</li>
+                            <li class="list-group-item"><strong>Autonomous Deployments:</strong> Deploy parts of the application independently.</li>
+                            <li class="list-group-item"><strong>Technology Diversity:</strong> Different teams can use different front-end frameworks if needed.</li>
+                        </ul>
+                    </div>
+    
+                    <!-- Topic 3: How Does Module Federation Fit? -->
+                    <div class="list-group-item">
+                        <h6>How Does Module Federation Fit?</h6>
+                        <p>
+                            <strong>Module Federation</strong> in Angular allows different applications to share modules at runtime, enabling the creation of Micro Frontends. It facilitates seamless integration and
+                            dynamic loading of features from remote applications, making it an essential tool for implementing Micro Frontends.
+                        </p>
+                    </div>
+    
+                    <!-- Topic 4: Key Takeaways -->
+                    <div class="list-group-item">
+                        <h2 class="h5">Key Takeaways</h2>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Micro Frontends help manage large-scale front-end applications by breaking them down into smaller, maintainable parts.</li>
+                            <li class="list-group-item">They enable autonomous development and deployment of front-end features.</li>
+                            <li class="list-group-item">Module Federation in Angular allows for runtime integration and dynamic sharing of features across applications.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu_content px-3 py-3 d-none"> 
+                <h5 class="text-muted border-bottom pb-2">Introduction to Module Federation</h5> 
+                
+                <div class="card shadow">
+                    <div class="list-group list-group-flush">
+                
+                        <!-- Topic 1: What is Module Federation? -->
+                        <div class="list-group-item">
+                            <h6>What is Module Federation?</h6>
+                            <p>
+                                Module Federation is a feature in Webpack 5 that enables multiple independent applications to share modules at runtime. It allows different parts of a large-scale application to be built and deployed independently while sharing common features or components.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 2: Why Use Module Federation? -->
+                        <div class="list-group-item">
+                            <h6>Why Use Module Federation?</h6>
+                            <p>
+                                The traditional monolithic approach can be challenging for scaling, especially when multiple teams are working on different parts of the application. Module Federation offers:
+                            </p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Code Sharing:</strong> Reuse components across different applications at runtime.</li>
+                                <li class="list-group-item"><strong>Independent Deployment:</strong> Deploy applications and updates separately without affecting the entire system.</li>
+                                <li class="list-group-item"><strong>Team Autonomy:</strong> Teams can work on different features or modules independently.</li>
+                            </ul>
+                        </div>
+                
+                        <!-- Topic 3: Key Features -->
+                        <div class="list-group-item">
+                            <h6>Key Features of Module Federation</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Dynamic Loading:</strong> Load modules or components dynamically at runtime, reducing initial load time.</li>
+                                <li class="list-group-item"><strong>Version Compatibility:</strong> Share common dependencies between applications with version compatibility handled automatically.</li>
+                                <li class="list-group-item"><strong>Scalability:</strong> Scale your applications efficiently with smaller, focused teams working on independent modules.</li>
+                            </ul>
+                        </div>
+                
+                        <!-- Topic 4: How Module Federation Works? -->
+                        <div class="list-group-item">
+                            <h6>How Does Module Federation Work?</h6>
+                            <p>
+                                At its core, Module Federation allows applications to declare exposed modules (components or features) that can be consumed by other applications. It achieves this through a central configuration in the <code>webpack.config.js</code> file, which defines:
+                            </p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Remote Modules:</strong> Declared modules that can be loaded from other applications.</li>
+                                <li class="list-group-item"><strong>Shared Dependencies:</strong> Dependencies shared between applications to avoid redundancy.</li>
+                                <li class="list-group-item"><strong>Dynamic Module Resolution:</strong> Resolves and loads the required modules on-demand at runtime.</li>
+                            </ul>
+                        </div>
+                
+                        <!-- Topic 5: Summary -->
+                        <div class="list-group-item">
+                            <h6>Summary</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Module Federation allows for the sharing of modules between multiple independent applications.</li>
+                                <li class="list-group-item">It facilitates code sharing, independent deployments, and enhanced team autonomy.</li>
+                                <li class="list-group-item">Key features include dynamic loading, version compatibility, and scalable architecture.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+
+
+            </div>
+
+            <div class="menu_content px-3 py-3 d-none"> 
+                <h5 class="text-muted border-bottom pb-2">Setup and Configuration for Module Federation</h5> 
+
+                <div class="card shadow">
+                    <div class="list-group list-group-flush">
+                
+                        <!-- Topic 1: Installing Required Packages -->
+                        <div class="list-group-item">
+                            <h6>Installing Required Packages</h6>
+                            <p>
+                                Before configuring Module Federation, ensure that you have Webpack 5 installed along with necessary dependencies. In Angular, you can install the required package using:
+                            </p>
+                            <pre><code>npm install @angular-architects/module-federation --save</code></pre>
+                        </div>
+                
+                        <!-- Topic 2: Configuring Webpack -->
+                        <div class="list-group-item">
+                            <h6>Configuring Webpack</h6>
+                            <p>
+                                Webpack 5 needs to be configured to use Module Federation. You will need to create a <code>webpack.config.js</code> file in your project root if it doesn’t already exist. Here’s an example configuration:
+                            </p>
+                <pre class="border bg-light shadow-sm"><code>
+                // webpack.config.js
+                const ModuleFederationPlugin = require("webpack").container.ModuleFederationPlugin;
+                
+                module.exports = {
+                    plugins: [
+                        new ModuleFederationPlugin({
+                            name: "hostApp",
+                            remotes: {
+                                remoteApp: "remoteApp@http://localhost:3001/remoteEntry.js",
+                            },
+                            shared: ["@angular/core", "@angular/common"]
+                        }),
+                    ],
+                };
+                            </code></pre>
+                        </div>
+                
+                        <!-- Topic 3: Declaring Exposed Modules -->
+                        <div class="list-group-item">
+                            <h6>Declaring Exposed Modules</h6>
+                            <p>
+                                In the remote application, declare which modules or components will be exposed for sharing with other applications. Here’s an example of exposing a module in the remote app configuration:
+                            </p>
+                <pre class="border bg-light shadow-sm"><code>
+                // webpack.config.js in Remote App
+                module.exports = {
+                    plugins: [
+                        new ModuleFederationPlugin({
+                            name: "remoteApp",
+                            filename: "remoteEntry.js",
+                            exposes: {
+                                './Component': './src/app/example/example.component.ts',
+                            },
+                            shared: ["@angular/core", "@angular/common"]
+                        }),
+                    ],
+                };
+                            </code></pre>
+                        </div>
+                
+                        <!-- Topic 4: Dynamic Module Loading in Host -->
+                        <div class="list-group-item">
+                            <h6>Dynamic Module Loading in Host Application</h6>
+                            <p>
+                                To dynamically load a module from the remote application, configure the host application to use <code>loadRemoteModule</code> from the Module Federation plugin. Here’s an example:
+                            </p>
+                <pre class="border bg-light shadow-sm"><code>
+                // host-app.module.ts
+                import { loadRemoteModule } from '@angular-architects/module-federation';
+                
+                @NgModule({
+                    imports: [
+                        RouterModule.forRoot([
+                            {
+                                path: 'example',
+                                loadChildren: () => loadRemoteModule({
+                                    remoteName: 'remoteApp',
+                                    exposedModule: './Component'
+                                }).then(m => m.ExampleModule)
+                            }
+                        ])
+                    ],
+                })
+                export class HostAppModule {}
+                            </code></pre>
+                        </div>
+                
+                        <!-- Topic 5: Summary -->
+                        <div class="list-group-item">
+                            <h6>Summary</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Install necessary packages for Module Federation in your Angular projects.</li>
+                                <li class="list-group-item">Configure Webpack using the Module Federation plugin to share or consume modules.</li>
+                                <li class="list-group-item">Declare exposed modules in the remote application to make them available to other apps.</li>
+                                <li class="list-group-item">Use dynamic module loading techniques to integrate modules between host and remote apps.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+
+
+
+
+            </div>
+
+
+            <div class="menu_content px-3 py-3 d-none"> 
+                <h5 class="text-muted border-bottom pb-2">Creating and Exposing a Remote Application</h5> 
+                <div class="card shadow">
+                    <div class="list-group list-group-flush">
+                
+                        <!-- Topic 1: Creating a Remote Application -->
+                        <div class="list-group-item">
+                            <h6>Creating a Remote Application</h6>
+                            <p>
+                                To create a remote application, start by setting up a new Angular application or using an existing one. Ensure that your project is updated to use Webpack 5. For creating a new Angular app, you can use:
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>ng new remote-app --routing --style=scss</code></pre>
+                            <p>
+                                This command sets up a new Angular project with routing and SCSS as the default style. Make sure to install the necessary dependencies for Module Federation.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 2: Configuring Module Federation Plugin -->
+                        <div class="list-group-item">
+                            <h6>Configuring Module Federation Plugin</h6>
+                            <p>
+                                The next step is to configure the Webpack Module Federation plugin. In your remote application’s project, create or modify the <code>webpack.config.js</code> file as follows:
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>
+                // remote-app/webpack.config.js
+                const ModuleFederationPlugin = require("webpack").container.ModuleFederationPlugin;
+                
+                module.exports = {
+                    output: {
+                        publicPath: "http://localhost:3001/"
+                    },
+                    plugins: [
+                        new ModuleFederationPlugin({
+                            name: "remoteApp",
+                            filename: "remoteEntry.js",
+                            exposes: {
+                                './ExampleComponent': './src/app/example/example.component.ts',
+                            },
+                            shared: {
+                                "@angular/core": { singleton: true, strictVersion: true },
+                                "@angular/common": { singleton: true, strictVersion: true },
+                            },
+                        }),
+                    ],
+                };
+                            </code></pre>
+                            <p>
+                                In this configuration, <code>name</code> is the name of your remote application, and <code>exposes</code> specifies the components or modules that are being shared.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 3: Exposing a Component or Module -->
+                        <div class="list-group-item">
+                            <h6>Exposing a Component or Module</h6>
+                            <p>
+                                You can expose any component or module within the remote application by adding it to the <code>exposes</code> property in the Webpack configuration. For example:
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>
+                // Exposing the ExampleComponent in webpack.config.js
+                exposes: {
+                    './ExampleComponent': './src/app/example/example.component.ts',
+                }
+                            </code></pre>
+                            <p>
+                                This configuration allows other applications to access <code>ExampleComponent</code> using the path <code>./ExampleComponent</code>.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 4: Running the Remote Application -->
+                        <div class="list-group-item">
+                            <h6>Running the Remote Application</h6>
+                            <p>
+                                Once the configuration is complete, start the remote application using the Angular CLI:
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>ng serve --port 3001</code></pre>
+                            <p>
+                                The remote application should now be accessible at <code>http://localhost:3001</code>. The exposed component or module will be available for use by other applications configured as hosts.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 5: Summary -->
+                        <div class="list-group-item">
+                            <h6>Summary</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Create or use an existing Angular application as a remote app.</li>
+                                <li class="list-group-item">Configure the Webpack Module Federation plugin to expose components or modules.</li>
+                                <li class="list-group-item">Define exposed components in the Webpack configuration.</li>
+                                <li class="list-group-item">Run the remote application and verify that exposed components are accessible.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+
+            <div class="menu_content px-3 py-3 d-none"> 
+                <h5 class="text-muted border-bottom pb-2">Consuming Remote Modules in the Host Application</h5> 
+
+                <div class="card shadow">
+                    <div class="list-group list-group-flush">
+                
+                        <!-- Topic 1: Setting Up the Host Application -->
+                        <div class="list-group-item">
+                            <h6>Setting Up the Host Application</h6>
+                            <p>
+                                In order to consume modules from a remote application, you need to set up the host application and configure it to use Module Federation. Start by ensuring your host application is created and updated to use Webpack 5. If you haven't created a host app yet, you can use:
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>ng new host-app --routing --style=scss</code></pre>
+                            <p>
+                                This command creates a new Angular project with routing and SCSS as the default style.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 2: Configuring Module Federation in Host -->
+                        <div class="list-group-item">
+                            <h6>Configuring Module Federation in Host</h6>
+                            <p>
+                                In the host application's project, configure the Module Federation plugin in <code>webpack.config.js</code> to declare the remote applications and the shared modules. Here’s an example:
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>
+                // host-app/webpack.config.js
+                const ModuleFederationPlugin = require("webpack").container.ModuleFederationPlugin;
+                
+                module.exports = {
+                    plugins: [
+                        new ModuleFederationPlugin({
+                            name: "hostApp",
+                            remotes: {
+                                remoteApp: "remoteApp@http://localhost:3001/remoteEntry.js",
+                            },
+                            shared: ["@angular/core", "@angular/common"]
+                        }),
+                    ],
+                };
+                            </code></pre>
+                            <p>
+                                In this configuration, <code>remotes</code> specifies the remote application and its entry point URL. This allows the host application to consume exposed modules from the remote app.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 3: Loading Remote Modules -->
+                        <div class="list-group-item">
+                            <h6>Loading Remote Modules</h6>
+                            <p>
+                                To dynamically load a module from the remote application, use the <code>loadRemoteModule</code> function provided by the Module Federation plugin. Here’s an example of how to configure lazy loading for a remote module in the host application:
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>
+                // host-app.module.ts
+                import { loadRemoteModule } from '@angular-architects/module-federation';
+                
+                @NgModule({
+                    imports: [
+                        RouterModule.forRoot([
+                            {
+                                path: 'example',
+                                loadChildren: () => loadRemoteModule({
+                                    remoteName: 'remoteApp',
+                                    exposedModule: './ExampleComponent'
+                                }).then(m => m.ExampleModule)
+                            }
+                        ])
+                    ],
+                })
+                export class HostAppModule {}
+                            </code></pre>
+                            <p>
+                                In this configuration, the host application defines a route that dynamically loads the <code>ExampleModule</code> exposed by the remote application. 
+                            </p>
+                        </div>
+                
+                        <!-- Topic 4: Accessing the Remote Component -->
+                        <div class="list-group-item">
+                            <h6>Accessing the Remote Component</h6>
+                            <p>
+                                Once the remote module is loaded in the host application, you can access the remote component by navigating to the configured route. For example, if the path is set to <code>/example</code>, visiting <code>http://localhost:4200/example</code> will load and display the remote component.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 5: Summary -->
+                        <div class="list-group-item">
+                            <h6>Summary</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Set up the host application and configure it to use Module Federation.</li>
+                                <li class="list-group-item">Configure the Module Federation plugin to declare remote applications and shared modules.</li>
+                                <li class="list-group-item">Use <code>loadRemoteModule</code> to dynamically load modules from the remote app in the host app.</li>
+                                <li class="list-group-item">Access the remote component via the configured route in the host application.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+
+
+            <div class="menu_content px-3 py-3 d-none"> 
+                <h5 class="text-muted border-bottom pb-2">Implementing Routing in Module Federation</h5> 
+                <div class="card shadow">
+                    <div class="list-group list-group-flush">
+                
+                        <!-- Topic 1: Introduction to Routing in Module Federation -->
+                        <div class="list-group-item">
+                            <h6>Introduction to Routing in Module Federation</h6>
+                            <p>
+                                In Module Federation, routing allows seamless navigation between components and modules from different remote applications. Each remote app can define its own routes, which can be dynamically loaded by the host application.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 2: Defining Routes in the Remote Application -->
+                        <div class="list-group-item">
+                            <h6>Defining Routes in the Remote Application</h6>
+                            <p>
+                                In the remote application, define the routes as you would normally do in an Angular app. Here’s an example route configuration in a remote app:
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>
+                // remote-app/src/app/app-routing.module.ts
+                const routes: Routes = [
+                    {
+                        path: '',
+                        component: HomeComponent
+                    },
+                    {
+                        path: 'details',
+                        component: DetailsComponent
+                    }
+                ];
+                
+                @NgModule({
+                    imports: [RouterModule.forRoot(routes)],
+                    exports: [RouterModule]
+                })
+                export class AppRoutingModule {}
+                            </code></pre>
+                            <p>
+                                These routes will be accessible when the remote application is loaded into the host.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 3: Loading Remote Routes in the Host Application -->
+                        <div class="list-group-item">
+                            <h6>Loading Remote Routes in the Host Application</h6>
+                            <p>
+                                To load routes from the remote application, use the <code>loadRemoteModule</code> function in the host app’s routing configuration. Here’s an example of how to achieve this:
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>
+                // host-app/src/app/app-routing.module.ts
+                const routes: Routes = [
+                    {
+                        path: 'remote',
+                        loadChildren: () => loadRemoteModule({
+                            remoteName: 'remoteApp',
+                            exposedModule: './RemoteModule'
+                        }).then(m => m.RemoteModule)
+                    }
+                ];
+                
+                @NgModule({
+                    imports: [RouterModule.forRoot(routes)],
+                    exports: [RouterModule]
+                })
+                export class AppRoutingModule {}
+                            </code></pre>
+                            <p>
+                                This configuration loads the routes defined in the remote app when the user navigates to <code>/remote</code> in the host application.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 4: Accessing Remote Routes -->
+                        <div class="list-group-item">
+                            <h6>Accessing Remote Routes</h6>
+                            <p>
+                                Once the remote routes are configured and loaded, users can navigate to the paths defined in the remote app. For example, if the remote app defines a route for <code>/details</code>, the host app can access this route via <code>http://localhost:4200/remote/details</code>.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 5: Summary -->
+                        <div class="list-group-item">
+                            <h6>Summary</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Define routes in the remote application as usual using Angular's <code>RouterModule</code>.</li>
+                                <li class="list-group-item">Configure the host app to load the remote routes using <code>loadRemoteModule</code>.</li>
+                                <li class="list-group-item">Ensure the paths are correctly mapped between host and remote apps to allow seamless navigation.</li>
+                                <li class="list-group-item">Test and verify that remote routes are accessible from the host application.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+
+            <div class="menu_content px-3 py-3 d-none"> 
+                <h5 class="text-muted border-bottom pb-2">Sharing State and Services between Remote and Host</h5> 
+
+                <div class="card shadow">
+                    <div class="list-group list-group-flush">
+                
+                        <!-- Topic 1: Introduction to State Sharing -->
+                        <div class="list-group-item">
+                            <h6>Introduction to State Sharing</h6>
+                            <p>
+                                In a micro frontend architecture using Module Federation, it's crucial to share services and state between the host and remote applications to maintain a consistent user experience. This can be achieved by sharing Angular services or using a centralized state management solution like NgRx.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 2: Sharing Services with Module Federation -->
+                        <div class="list-group-item">
+                            <h6>Sharing Services with Module Federation</h6>
+                            <p>
+                                To share services between the host and remote applications, ensure that the services are provided at a shared module level or in the root of the Angular dependency injection system. Then, use the shared configuration in Webpack. Here’s an example:
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>
+                // remote-app/webpack.config.js
+                module.exports = {
+                    plugins: [
+                        new ModuleFederationPlugin({
+                            name: "remoteApp",
+                            filename: "remoteEntry.js",
+                            exposes: {
+                                './SharedService': './src/app/shared/shared.service.ts',
+                            },
+                            shared: {
+                                "@angular/core": { singleton: true },
+                                "@angular/common": { singleton: true },
+                            },
+                        }),
+                    ],
+                };
+                            </code></pre>
+                            <p>
+                                In the above example, a service is exposed from the remote app for use by other applications.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 3: Consuming Shared Services in the Host -->
+                        <div class="list-group-item">
+                            <h6>Consuming Shared Services in the Host</h6>
+                            <p>
+                                To consume the shared service from the remote app, load it using the <code>loadRemoteModule</code> function in the host application and inject it as needed. Here’s an example:
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>
+                // host-app/app.module.ts
+                import { loadRemoteModule } from '@angular-architects/module-federation';
+                import { SharedService } from 'remoteApp/SharedService';
+                
+                @NgModule({
+                    providers: [SharedService],
+                    // Other configurations
+                })
+                export class HostAppModule {}
+                            </code></pre>
+                            <p>
+                                With this configuration, you can inject <code>SharedService</code> into any component within the host application.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 4: Using a Centralized State Management (NgRx) -->
+                        <div class="list-group-item">
+                            <h6>Using a Centralized State Management (NgRx)</h6>
+                            <p>
+                                If your applications need to share state, you can use a state management library like NgRx. The host and remote applications can share a store module and state using the shared configuration in Module Federation.
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>
+                // host-app/webpack.config.js
+                shared: {
+                    "@ngrx/store": { singleton: true, strictVersion: true },
+                    // Other shared libraries
+                }
+                            </code></pre>
+                            <p>
+                                This configuration ensures that the same instance of the NgRx store is used across both the host and remote applications, allowing them to share the state seamlessly.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 5: Summary -->
+                        <div class="list-group-item">
+                            <h6>Summary</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Services can be shared between host and remote apps using Module Federation's shared configuration.</li>
+                                <li class="list-group-item">Use the shared dependency injection system in Angular to provide services at a global level.</li>
+                                <li class="list-group-item">For state sharing, use a centralized state management solution like NgRx and share it across apps using the shared configuration.</li>
+                                <li class="list-group-item">Test shared services and state thoroughly to ensure consistency across host and remote applications.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+
+
+            <div class="menu_content px-3 py-3 d-none"> 
+                <h5 class="text-muted border-bottom pb-2">Dependency Sharing and Version Conflicts</h5> 
+                <div class="card shadow">
+                    <div class="list-group list-group-flush">
+                
+                        <!-- Topic 1: Introduction to Dependency Sharing -->
+                        <div class="list-group-item">
+                            <h6>Introduction to Dependency Sharing</h6>
+                            <p>
+                                Module Federation allows applications to share dependencies such as libraries or common components. This helps avoid redundancy and ensures that different applications use a single instance of shared libraries. Proper dependency sharing is crucial to avoid issues like increased bundle size or version conflicts.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 2: Configuring Shared Dependencies -->
+                        <div class="list-group-item">
+                            <h6>Configuring Shared Dependencies</h6>
+                            <p>
+                                In the Module Federation configuration, dependencies can be shared using the <code>shared</code> property in the Webpack configuration. Here’s an example of sharing dependencies between a host and a remote app:
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>
+                // webpack.config.js
+                shared: {
+                    "@angular/core": { singleton: true, strictVersion: true },
+                    "@angular/common": { singleton: true, strictVersion: true },
+                    "rxjs": { singleton: true, strictVersion: true }
+                }
+                            </code></pre>
+                            <p>
+                                In this configuration, the dependencies <code>@angular/core</code>, <code>@angular/common</code>, and <code>rxjs</code> are marked as singletons. This ensures that only one instance of these libraries is used across all federated applications.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 3: Handling Version Conflicts -->
+                        <div class="list-group-item">
+                            <h6>Handling Version Conflicts</h6>
+                            <p>
+                                When sharing dependencies, it is common to encounter version conflicts between different applications. To handle version conflicts, you can use the <code>requiredVersion</code> property to enforce a specific version of a dependency. Here’s an example:
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>
+                // webpack.config.js
+                shared: {
+                    "@angular/core": { singleton: true, requiredVersion: "12.0.0" },
+                    "@angular/common": { singleton: true, requiredVersion: "12.0.0" },
+                    "rxjs": { singleton: true, requiredVersion: "^6.6.0" }
+                }
+                            </code></pre>
+                            <p>
+                                The <code>requiredVersion</code> property specifies the exact version or version range that must be used. If a remote application tries to use a different version, Module Federation will attempt to resolve the conflict based on this setting.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 4: Sharing Custom Libraries -->
+                        <div class="list-group-item">
+                            <h6>Sharing Custom Libraries</h6>
+                            <p>
+                                Apart from standard dependencies, you can also share custom libraries across your federated applications. To do this, ensure that the custom library is included in the <code>shared</code> section of the Webpack configuration and is available in your project’s node modules. For example:
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>
+                // webpack.config.js
+                shared: {
+                    "custom-lib": { singleton: true, strictVersion: true, requiredVersion: "1.0.0" }
+                }
+                            </code></pre>
+                            <p>
+                                This allows the host and remote applications to use the same version of your custom library without creating multiple instances.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 5: Summary -->
+                        <div class="list-group-item">
+                            <h6>Summary</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Configure shared dependencies in Webpack using the <code>shared</code> property to prevent redundancy.</li>
+                                <li class="list-group-item">Use the <code>singleton</code> option to enforce a single instance of shared libraries across applications.</li>
+                                <li class="list-group-item">Handle version conflicts using the <code>requiredVersion</code> property to specify compatible versions.</li>
+                                <li class="list-group-item">Share custom libraries in the same way as standard dependencies to maintain consistency.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="menu_content px-3 py-3 d-none"> 
+                <h5 class="text-muted border-bottom pb-2">Advanced Dynamic Module Federation Concepts</h5> 
+                <div class="card shadow">
+                    <div class="list-group list-group-flush">
+                
+                        <!-- Topic 1: Introduction to Dynamic Module Federation -->
+                        <div class="list-group-item">
+                            <h6>Introduction to Dynamic Module Federation</h6>
+                            <p>
+                                Dynamic Module Federation takes the concept of Module Federation further by allowing applications to load remote modules or components dynamically at runtime. This means that applications can decide which remote modules to load based on user interaction or application state, making it highly scalable and flexible.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 2: Configuring Dynamic Remote Modules -->
+                        <div class="list-group-item">
+                            <h6>Configuring Dynamic Remote Modules</h6>
+                            <p>
+                                In a dynamic configuration, remote modules are not hard-coded into the Webpack configuration. Instead, their configuration is provided at runtime. You can achieve this by setting up dynamic URLs for the remote entries in your application. Here’s an example:
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>
+                // Dynamic remote entry setup
+                const remoteUrl = 'http://localhost:3002/remoteEntry.js';
+                const remoteName = 'dynamicRemoteApp';
+                
+                loadRemoteModule({
+                    remoteEntry: remoteUrl,
+                    remoteName: remoteName,
+                    exposedModule: './DynamicComponent'
+                }).then(m => {
+                    // Use the loaded module or component
+                });
+                            </code></pre>
+                            <p>
+                                In this configuration, the URL and remote module name are provided dynamically. This allows you to load different remote modules at runtime based on user input or other logic.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 3: Loading Modules Dynamically -->
+                        <div class="list-group-item">
+                            <h6>Loading Modules Dynamically</h6>
+                            <p>
+                                To load remote modules dynamically, you can use the <code>loadRemoteModule</code> function in response to specific conditions or user actions. This approach enables fine-grained control over which modules are loaded and when. Here’s an example of loading a module based on a button click:
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>
+                // Loading a dynamic module on button click
+                loadModuleOnClick() {
+                    loadRemoteModule({
+                        remoteEntry: 'http://localhost:3003/remoteEntry.js',
+                        remoteName: 'anotherRemoteApp',
+                        exposedModule: './RemoteFeatureModule'
+                    }).then(m => {
+                        this.loadedModule = m.RemoteFeatureModule;
+                    });
+                }
+                            </code></pre>
+                            <p>
+                                This code demonstrates loading a module when a specific user action occurs, such as clicking a button.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 4: Configuring Remote Module Resolution at Runtime -->
+                        <div class="list-group-item">
+                            <h6>Configuring Remote Module Resolution at Runtime</h6>
+                            <p>
+                                Dynamic resolution of remote modules can be configured by fetching the remote entry information from a server or a configuration file. This allows you to change which modules or applications are loaded without redeploying your host application. Here’s an example of fetching remote configuration from a server:
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>
+                // Fetching remote entry configuration dynamically
+                fetch('https://my-server.com/remote-config.json')
+                    .then(response => response.json())
+                    .then(config => {
+                        return loadRemoteModule({
+                            remoteEntry: config.remoteUrl,
+                            remoteName: config.remoteName,
+                            exposedModule: config.exposedModule
+                        });
+                    }).then(module => {
+                        // Use the dynamically loaded module
+                    });
+                            </code></pre>
+                            <p>
+                                This approach enables you to update the configuration on the server, dynamically affecting which remote modules are loaded by the host application.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 5: Summary -->
+                        <div class="list-group-item">
+                            <h6>Summary</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Dynamic Module Federation enables applications to load remote modules based on runtime conditions or user actions.</li>
+                                <li class="list-group-item">Remote modules can be configured dynamically without hard-coding their entries in the Webpack configuration.</li>
+                                <li class="list-group-item">Dynamically resolve and load remote modules by fetching configuration from a server or a configuration file.</li>
+                                <li class="list-group-item">This approach allows for greater scalability and flexibility in managing large-scale applications.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="menu_content px-3 py-3 d-none"> 
+                <h5 class="text-muted border-bottom pb-2">Best Practices and Performance Considerations</h5> 
+                <div class="card shadow">
+                    <div class="list-group list-group-flush">
+                
+                        <!-- Topic 1: Introduction to Best Practices -->
+                        <div class="list-group-item">
+                            <h6>Introduction to Best Practices</h6>
+                            <p>
+                                Implementing Module Federation effectively requires following certain best practices to ensure scalability, maintainability, and optimal performance. This section outlines key strategies and recommendations to achieve a smooth integration of federated modules.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 2: Version Management for Shared Dependencies -->
+                        <div class="list-group-item">
+                            <h6>Version Management for Shared Dependencies</h6>
+                            <p>
+                                When sharing dependencies across host and remote applications, it's crucial to maintain consistency in the versions of shared libraries. Use the <code>requiredVersion</code> property in the Webpack configuration to enforce specific versions. This helps avoid unexpected behavior due to version mismatches.
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>
+                // Enforcing version consistency
+                shared: {
+                    "@angular/core": { singleton: true, strictVersion: true, requiredVersion: "12.0.0" },
+                    "@angular/common": { singleton: true, strictVersion: true, requiredVersion: "12.0.0" }
+                }
+                            </code></pre>
+                        </div>
+                
+                        <!-- Topic 3: Lazy Loading for Improved Performance -->
+                        <div class="list-group-item">
+                            <h6>Lazy Loading for Improved Performance</h6>
+                            <p>
+                                To improve initial load times and performance, leverage lazy loading of remote modules. This ensures that only the necessary modules are loaded when required, reducing the initial bundle size. Use the <code>loadRemoteModule</code> function to load modules on demand.
+                            </p>
+                            <pre class="border bg-light shadow-sm"><code>
+                // Lazy loading example
+                loadRemoteModule({
+                    remoteEntry: 'http://localhost:3002/remoteEntry.js',
+                    remoteName: 'remoteApp',
+                    exposedModule: './LazyLoadedModule'
+                }).then(m => {
+                    // Use the lazy-loaded module
+                });
+                            </code></pre>
+                        </div>
+                
+                        <!-- Topic 4: Versioning and Deployment Strategies -->
+                        <div class="list-group-item">
+                            <h6>Versioning and Deployment Strategies</h6>
+                            <p>
+                                Deploying federated modules requires careful consideration of versioning and rollout strategies. Adopt semantic versioning and follow CI/CD pipelines to automate the deployment process. Use feature flags or environment-based configurations to control which remote versions are loaded at runtime.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 5: Security Considerations -->
+                        <div class="list-group-item">
+                            <h6>Security Considerations</h6>
+                            <p>
+                                When working with remote modules, always validate and sanitize any data exchanged between host and remote applications to prevent security vulnerabilities. Implement CORS policies and secure APIs to protect your applications from malicious access.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 6: Testing and Monitoring -->
+                        <div class="list-group-item">
+                            <h6>Testing and Monitoring</h6>
+                            <p>
+                                Testing federated modules is essential to ensure consistency and avoid regressions. Write comprehensive unit tests and integration tests for both host and remote applications. Additionally, monitor the performance and health of remote modules using analytics and logging tools to detect and address issues proactively.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 7: Summary -->
+                        <div class="list-group-item">
+                            <h6>Summary</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Manage shared dependencies carefully and enforce consistent versions to avoid conflicts.</li>
+                                <li class="list-group-item">Use lazy loading for remote modules to enhance performance and reduce initial load times.</li>
+                                <li class="list-group-item">Adopt versioning and deployment strategies that allow flexibility in loading different remote versions.</li>
+                                <li class="list-group-item">Implement security measures and thoroughly test federated modules for consistency and stability.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="menu_content px-3 py-3 d-none"> 
+                <h5 class="text-muted border-bottom pb-2">Hands-on Demo and Q&A</h5>
+                <div class="card shadow">
+                    <div class="list-group list-group-flush">
+                
+                        <!-- Topic 1: Hands-on Demo Overview -->
+                        <div class="list-group-item">
+                            <h6>Hands-on Demo Overview</h6>
+                            <p>
+                                The hands-on demo section is designed to give participants practical experience with the key concepts of Module Federation. We will walk through the creation, configuration, and integration of host and remote applications to demonstrate dynamic loading, shared dependencies, and lazy loading.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 2: Step-by-Step Demo -->
+                        <div class="list-group-item">
+                            <h6>Step-by-Step Demo</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Step 1:</strong> Create and set up the host and remote Angular applications using Angular CLI.</li>
+                                <li class="list-group-item"><strong>Step 2:</strong> Configure Module Federation in both host and remote applications using Webpack.</li>
+                                <li class="list-group-item"><strong>Step 3:</strong> Define and expose a module or component from the remote application.</li>
+                                <li class="list-group-item"><strong>Step 4:</strong> Dynamically load and integrate the remote module into the host application.</li>
+                                <li class="list-group-item"><strong>Step 5:</strong> Demonstrate lazy loading and dependency sharing between host and remote apps.</li>
+                                <li class="list-group-item"><strong>Step 6:</strong> Test and verify the implementation by navigating through various routes and modules.</li>
+                            </ul>
+                        </div>
+                
+                        <!-- Topic 3: Common Pitfalls and Troubleshooting -->
+                        <div class="list-group-item">
+                            <h6>Common Pitfalls and Troubleshooting</h6>
+                            <p>
+                                During the demo, we will address common issues that arise when setting up Module Federation, such as version conflicts, module loading failures, and misconfigured dependencies. Solutions to these problems will be demonstrated along with best practices for avoiding them.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 4: Q&A Session -->
+                        <div class="list-group-item">
+                            <h6>Q&A Session</h6>
+                            <p>
+                                In the Q&A session, participants are encouraged to ask questions related to Module Federation, dynamic loading, and micro frontends. We will address these queries and discuss how to apply these concepts in real-world applications.
+                            </p>
+                        </div>
+                
+                        <!-- Topic 5: Summary of Key Learnings -->
+                        <div class="list-group-item">
+                            <h6>Summary of Key Learnings</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Participants should now understand how to create, configure, and integrate host and remote applications.</li>
+                                <li class="list-group-item">The demo covered key features like dynamic loading, lazy loading, and shared dependencies.</li>
+                                <li class="list-group-item">We discussed common pitfalls and best practices to avoid them.</li>
+                                <li class="list-group-item">Open Q&A allowed for addressing specific challenges and questions from the audience.</li>
+                            </ul>
+                        </div>
+                
+                    </div>
+                </div>
+                 
+            </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+        let selectedIndex = 0;
+        Array.from(document.getElementsByClassName('menu_item')).forEach((item, index)=>{
+            item.addEventListener('click',()=>{
+                console.log(Array.from(document.getElementsByClassName('menu_content'))[index]);  
+                selectItem(index);                              
+            });
+        });
+
+        function selectItem(index){
+            Array.from(document.getElementsByClassName('menu_item'))[selectedIndex].classList.add('bg-light');
+            Array.from(document.getElementsByClassName('menu_item'))[selectedIndex].classList.add('shadow-sm');
+            Array.from(document.getElementsByClassName('menu_item'))[selectedIndex].classList.remove('bg-white');
+            Array.from(document.getElementsByClassName('menu_content'))[selectedIndex].classList.add('d-none');
+            selectedIndex = index;
+            Array.from(document.getElementsByClassName('menu_item'))[selectedIndex].classList.remove('bg-light');
+            Array.from(document.getElementsByClassName('menu_item'))[selectedIndex].classList.remove('shadow-sm');
+            Array.from(document.getElementsByClassName('menu_item'))[selectedIndex].classList.add('bg-white');
+            Array.from(document.getElementsByClassName('menu_content'))[selectedIndex].classList.remove('d-none');
+        }
+        selectItem(selectedIndex);
+    </script>
+  </body>
+</html>
