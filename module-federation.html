@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular (V15) Module Federation Training</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { margin-top: 20px; }
+        .segment-title { font-size: 24px; font-weight: bold; color: #0d6efd; }
+        .time { color: #6c757d; }
+        .content-section { margin-bottom: 30px; }
+        pre { background-color: #f8f9fa; padding: 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Angular (V15) Module Federation Training</h1>
+
+        <!-- Segment 1: Introduction -->
+        <div class="content-section">
+            <h2 class="segment-title">1. Introduction to Micro Frontends and Module Federation</h2>
+            <p class="time">Start Time: 10:00 AM | End Time: 10:15 AM</p>
+            <p>Micro Frontends allow you to split large front-end applications into smaller, manageable parts. Module Federation enables sharing modules across applications.</p>
+        </div>
+
+        <!-- Segment 2: Setup and Configuration -->
+        <div class="content-section">
+            <h2 class="segment-title">2. Setup and Configuration for Module Federation</h2>
+            <p class="time">Start Time: 10:20 AM | End Time: 10:35 AM</p>
+            <p>In this segment, we’ll install the necessary packages and configure Webpack for Module Federation.</p>
+            <pre>
+// Installing Webpack 5
+npm install --save @angular-architects/module-federation
+
+// Sample webpack.config.js
+module.exports = {
+    name: "app",
+    remotes: {
+        "remoteApp": "remoteApp@http://localhost:3001/remoteEntry.js",
+    },
+    exposes: {
+        "./Component": "./src/app/component.ts",
+    },
+    shared: {
+        "@angular/core": { singleton: true },
+        "@angular/common": { singleton: true },
+    }
+};
+            </pre>
+        </div>
+
+        <!-- Segment 3: Creating and Exposing Remote -->
+        <div class="content-section">
+            <h2 class="segment-title">3. Creating and Exposing a Remote Application</h2>
+            <p class="time">Start Time: 10:40 AM | End Time: 10:55 AM</p>
+            <p>Learn how to create a remote application and expose its components or modules using Module Federation.</p>
+        </div>
+
+        <!-- Segment 4: Consuming Remote Modules -->
+        <div class="content-section">
+            <h2 class="segment-title">4. Consuming Remote Modules in the Host Application</h2>
+            <p class="time">Start Time: 11:00 AM | End Time: 11:15 AM</p>
+            <p>Configure the host app to dynamically load and use exposed components or modules from the remote application.</p>
+        </div>
+
+        <!-- Segment 5: Implementing Routing -->
+        <div class="content-section">
+            <h2 class="segment-title">5. Implementing Routing in Module Federation</h2>
+            <p class="time">Start Time: 11:20 AM | End Time: 11:35 AM</p>
+            <p>Handle routing and navigation between remote and host applications using lazy-loaded routes.</p>
+        </div>
+
+        <!-- Segment 6: Sharing State and Services -->
+        <div class="content-section">
+            <h2 class="segment-title">6. Sharing State and Services between Remote and Host</h2>
+            <p class="time">Start Time: 11:40 AM | End Time: 11:55 AM</p>
+            <p>Share services and state between federated modules to achieve a unified experience across apps.</p>
+        </div>
+
+        <!-- Segment 7: Dependency Sharing -->
+        <div class="content-section">
+            <h2 class="segment-title">7. Dependency Sharing and Version Conflicts</h2>
+            <p class="time">Start Time: 12:00 PM | End Time: 12:15 PM</p>
+            <p>Learn about sharing dependencies using the <code>shared</code> configuration and how to handle version conflicts.</p>
+        </div>
+
+        <!-- Segment 8: Advanced Dynamic Module Federation -->
+        <div class="content-section">
+            <h2 class="segment-title">8. Advanced Dynamic Module Federation Concepts</h2>
+            <p class="time">Start Time: 12:20 PM | End Time: 12:35 PM</p>
+            <p>Discover how to dynamically load remote applications at runtime and update remote configuration.</p>
+        </div>
+
+        <!-- Segment 9: Best Practices and Performance Considerations -->
+        <div class="content-section">
+            <h2 class="segment-title">9. Best Practices and Performance Considerations</h2>
+            <p class="time">Start Time: 12:40 PM | End Time: 12:55 PM</p>
+            <p>Optimize your federated applications for performance, follow best practices, and plan for versioning and scaling.</p>
+        </div>
+
+        <!-- Hands-on Demo and Q&A -->
+        <div class="content-section">
+            <h2 class="segment-title">10. Hands-on Demo and Q&A</h2>
+            <p class="time">Start Time: 1:00 PM | End Time: 1:30 PM</p>
+            <p>We’ll review a small project showcasing all the concepts discussed and conduct a Q&A session to address common issues.</p>
+        </div>
+    </div>
+</body>
+</html>
