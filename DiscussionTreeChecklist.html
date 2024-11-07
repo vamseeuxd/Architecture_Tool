@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Decision Tree</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <!-- jsPDF Library -->
+    <style>
+      .node {
+        position: relative;
+        min-height: 52px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+      }
+      .node-icons {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: #f0f0f0;
+      }
+      .node-icons .btn {
+        border: none;
+      }
+      .node-label {
+        border: none;
+        background: transparent;
+        width: 100%;
+        padding: 0;
+      }
+      .node-label:focus {
+        outline: none;
+        background-color: #e9ecef;
+        border-radius: 4px;
+        padding-left: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar bg-primary shadow" data-bs-theme="dark">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">DTCC Decision Tree</span>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div id="treeContainer"></div>
+      <!-- <button id="addRootNode" class="btn btn-primary mt-3"> <i class="fas fa-plus"></i> Add Root Node </button> -->
+      <button id="exportData" class="btn btn-outline-secondary mt-3">
+        <i class="fas fa-download"></i> Export Data
+      </button>
+      <input
+        type="file"
+        id="importData"
+        class="btn btn-secondary mt-3"
+        accept=".json"
+        style="display: none"
+      />
+      <label for="importData" class="btn btn-outline-primary mt-3">
+        <i class="fas fa-upload"></i> Import Data
+      </label>
+      <button id="exportPdf" class="btn btn-outline-success mt-3">
+        <i class="fas fa-file-pdf"></i> Export PDF
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-danger mt-3"
+        data-bs-toggle="modal"
+        data-bs-target="#documentationModal"
+      >
+        <i class="fas fa-book"></i> Documentation
+      </button>
+    </div>
+
+    <div
+      class="modal fade"
+      id="documentationModal"
+      tabindex="-1"
+      aria-labelledby="documentationModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="documentationModalLabel">
+              Decision Tree Documentation
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <ul class="list-group">
+              <!-- ******************************** Purpose ******************************** -->
+              <li class="list-group-item shadow-sm border mb-2">
+                <h5 class="border-bottom pb-2">Purpose</h5>
+                <p>
+                  This tool is designed for individuals or teams who need to
+                  manage hierarchical data structures. It is commonly used for:
+                </p>
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    Project or feature dependency mapping
+                  </li>
+                  <li class="list-group-item">Task breakdowns</li>
+                  <li class="list-group-item">
+                    Visual representation of complex hierarchies
+                  </li>
+                  <li class="list-group-item">
+                    Mind mapping and brainstorming sessions
+                  </li>
+                </ul>
+              </li>
+              <!-- ******************************** Purpose ******************************** -->
+
+              <!-- ******************************** Features ******************************** -->
+              <li class="list-group-item shadow-sm border mb-2">
+                <h5 class="border-bottom pb-2">Features</h5>
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <strong>Add Root Nodes:</strong> Create new top-level nodes
+                    in the tree.
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Add Child Nodes:</strong> Add child nodes to any
+                    node, creating a nested hierarchy.
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Delete Nodes:</strong> Remove any node, including
+                    root nodes.
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Editable Node Labels:</strong> Change the label of
+                    any node by simply clicking on it.
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Keyboard Navigation:</strong> Move between nodes
+                    using keyboard shortcuts.
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Export to JSON:</strong> Export the tree structure
+                    as a JSON file to save and share.
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Import from JSON:</strong> Load a saved JSON file to
+                    restore a previous tree structure.
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Export to PDF:</strong> Generate a PDF version of
+                    the tree structure for printing or sharing.
+                  </li>
+                </ul>
+              </li>
+              <!-- ******************************** Features ******************************** -->
+
+              <!-- ******************************** How to Use ******************************** -->
+              <li class="list-group-item shadow-sm border mb-2">
+                <h5 class="border-bottom pb-2">How to Use</h5>
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <strong>Adding a Root Node:</strong> Click the "Add Root
+                    Node" button to add a new root node. Enter a label in the
+                    text field.
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Adding Child Nodes:</strong> Select a node and press
+                    <kbd>Shift + Enter</kbd> or click the
+                    <strong>Add Child</strong> icon. Enter a label for the new
+                    child node.
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Deleting a Node:</strong> Select a node and press
+                    <kbd>Delete</kbd> or click the
+                    <strong>Remove Node</strong> icon. The next root node or
+                    sibling will be focused automatically.
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Editing a Node Label:</strong> Click on a node label
+                    to edit it, then press <kbd>Enter</kbd> to save.
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Navigating the Tree:</strong>
+                    Use the Keyboard Shortcuts below to move between nodes, up
+                    and down the hierarchy, and between siblings.
+                    <!-- ******************************** Keyboard Shortcuts ******************************** -->
+                    <div class="rounded p-3 border shadow-sm m-2">
+                      <h6 class="border-bottom pb-1">Keyboard Shortcuts</h6>
+                      <ul class="list-group">
+                        <li class="list-group-item">
+                          <kbd>Enter</kbd>: Add a sibling node below the
+                          selected node
+                        </li>
+                        <li class="list-group-item">
+                          <kbd>Shift + Enter</kbd>: Add a child node to the
+                          selected node
+                        </li>
+                        <li class="list-group-item">
+                          <kbd>Delete</kbd>: Delete the selected node
+                        </li>
+                        <li class="list-group-item">
+                          <kbd>Arrow Up</kbd>: Move to the previous sibling node
+                        </li>
+                        <li class="list-group-item">
+                          <kbd>Arrow Down</kbd>: Move to the next sibling node
+                        </li>
+                        <li class="list-group-item">
+                          <kbd>Arrow Left</kbd>: Move to the parent node
+                        </li>
+                        <li class="list-group-item">
+                          <kbd>Arrow Right</kbd>: Move to the first child node
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- ******************************** Keyboard Shortcuts ******************************** -->
+                  </li>
+                </ul>
+              </li>
+              <!-- ******************************** How to Use ******************************** -->
+
+              <!-- ******************************** Export and Import Options ******************************** -->
+              <li class="list-group-item shadow-sm border mb-2">
+                <h5 class="border-bottom pb-2">Export and Import Options</h5>
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <strong>Export to JSON:</strong> Click "Export Data" to
+                    download the tree structure as a JSON file for later use.
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Import from JSON:</strong> Click "Import Data" to
+                    load a previously saved JSON file and restore the tree
+                    structure.
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Export to PDF:</strong> Click "Export PDF" to create
+                    a PDF version of the tree structure, with hierarchical
+                    indentation.
+                  </li>
+                </ul>
+              </li>
+              <!-- ******************************** Export and Import Options ******************************** -->
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const { jsPDF } = window.jspdf;
+        const treeContainer = document.getElementById("treeContainer");
+        const addRootNodeButton = document.getElementById("addRootNode");
+        const exportDataButton = document.getElementById("exportData");
+        const importDataInput = document.getElementById("importData");
+        const exportPdfButton = document.getElementById("exportPdf");
+
+        let nodeId = 0;
+
+        const defaultRootNodes = [
+          "Possibilities",
+          "Risks",
+          "Dependencies",
+          "Complexity",
+          "Modularity",
+          "Documentation",
+          "ChangeTypes",
+        ];
+
+        function createNodeElement(nodeLabel, parentElement = treeContainer) {
+          const nodeElement = document.createElement("div");
+          nodeElement.className = "node p-2 my-2 border rounded";
+          nodeElement.setAttribute("data-id", ++nodeId);
+
+          nodeElement.innerHTML = `
+          <div class="node-icons p-1 rounded shadow-sm border">
+            <button class="btn btn-sm btn-outline-success addChildNode" title="Add Child">
+              <i class="fas fa-plus"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger removeNode" title="Remove Node">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+          <div class="node-content ps-2 w-100 py-2">
+            <input type="text" class="node-label" value="${nodeLabel}" />
+          </div>
+          <div class="children w-100"></div>
+        `;
+
+          const labelInput = nodeElement.querySelector(".node-label");
+          labelInput.addEventListener("keypress", (event) =>
+            handleKeyPress(event, nodeElement, parentElement)
+          );
+          labelInput.addEventListener("keydown", (event) =>
+            handleKeyDown(event, nodeElement, parentElement)
+          );
+
+          nodeElement
+            .querySelector(".addChildNode")
+            .addEventListener("click", () => addChildNode(nodeElement));
+          nodeElement
+            .querySelector(".removeNode")
+            .addEventListener("click", () => removeNode(nodeElement));
+
+          parentElement.appendChild(nodeElement);
+          return nodeElement;
+        }
+
+        function handleKeyPress(event, nodeElement, parentElement) {
+          if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault();
+            const newNodeLabel = `Node ${++nodeId}`;
+            const newNodeElement = createNodeElement(
+              newNodeLabel,
+              parentElement
+            );
+            newNodeElement.querySelector(".node-label").focus();
+          }
+        }
+
+        function handleKeyDown(event, nodeElement, parentElement) {
+          const labelInput = nodeElement.querySelector(".node-label");
+
+          // Add child node with Shift + Enter
+          if (event.key === "Enter" && event.shiftKey) {
+            event.preventDefault();
+            addChildNode(nodeElement);
+          }
+
+          // Remove node with Delete key
+          if (event.key === "Delete") {
+            event.preventDefault();
+            removeNode(nodeElement);
+          }
+
+          // Navigate with Arrow Up, Arrow Down, Arrow Left, and Arrow Right
+          if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+            event.preventDefault();
+            const nextNode =
+              event.key === "ArrowDown"
+                ? nodeElement.nextElementSibling
+                : nodeElement.previousElementSibling;
+            if (nextNode) {
+              nextNode.querySelector(".node-label").focus();
+            }
+          }
+
+          // Navigate to parent with Arrow Left
+          if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            const parentDiv = nodeElement.closest(".children")
+              ? nodeElement.closest(".children").parentElement
+              : null;
+            if (parentDiv && parentDiv.classList.contains("node")) {
+              parentDiv.querySelector(".node-label").focus();
+            }
+          }
+
+          // Navigate to first child with Arrow Right
+          if (event.key === "ArrowRight") {
+            event.preventDefault();
+            const firstChild = nodeElement.querySelector(".children .node");
+            if (firstChild) {
+              firstChild.querySelector(".node-label").focus();
+            }
+          }
+        }
+
+        function addChildNode(parentElement) {
+          const childrenContainer = parentElement.querySelector(".children");
+          const newNodeLabel = `Node ${++nodeId}`;
+          const newNodeElement = createNodeElement(
+            newNodeLabel,
+            childrenContainer
+          );
+          newNodeElement.querySelector(".node-label").focus();
+        }
+
+        // Enhanced removeNode function to handle root node deletion
+        function removeNode(nodeElement) {
+          const previousSibling = nodeElement.previousElementSibling;
+          const nextSibling = nodeElement.nextElementSibling;
+          const parentDiv = nodeElement.closest(".children")
+            ? nodeElement.closest(".children").parentElement
+            : null;
+
+          nodeElement.remove();
+
+          if (previousSibling) {
+            previousSibling.querySelector(".node-label").focus();
+          } else if (nextSibling) {
+            nextSibling.querySelector(".node-label").focus();
+          } else if (parentDiv && parentDiv.classList.contains("node")) {
+            parentDiv.querySelector(".node-label").focus();
+          } else if (!parentDiv && treeContainer.children.length > 0) {
+            treeContainer.children[0].querySelector(".node-label").focus();
+          }
+        }
+
+        function treeToJson(element) {
+          const label = element.querySelector(".node-label").value;
+          const children = Array.from(
+            element.querySelector(".children").children
+          ).map((child) => treeToJson(child));
+          return { label, children };
+        }
+
+        function jsonToTree(data, parentElement = treeContainer) {
+          const nodeElement = createNodeElement(data.label, parentElement);
+          data.children.forEach((child) =>
+            jsonToTree(child, nodeElement.querySelector(".children"))
+          );
+        }
+
+        exportDataButton.addEventListener("click", () => {
+          const treeData = Array.from(treeContainer.children).map((node) =>
+            treeToJson(node)
+          );
+          const blob = new Blob([JSON.stringify(treeData, null, 2)], {
+            type: "application/json",
+          });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "tree-data.json";
+          a.click();
+          URL.revokeObjectURL(url);
+        });
+
+        importDataInput.addEventListener("change", async (event) => {
+          const file = event.target.files[0];
+          if (!file) return;
+
+          const text = await file.text();
+          const data = JSON.parse(text);
+
+          treeContainer.innerHTML = "";
+          data.forEach((rootNodeData) => jsonToTree(rootNodeData));
+        });
+
+        exportPdfButton.addEventListener("click", () => {
+          const pdf = new jsPDF();
+          pdf.text("Tree Structure", 10, 10);
+
+          let yPosition = 20;
+
+          function addNodeToPdf(node, level = 0) {
+            const label = node.querySelector(".node-label").value;
+            pdf.text(`${"  ".repeat(level)}- ${label}`, 10, yPosition);
+            yPosition += 10;
+            if (yPosition > 280) {
+              pdf.addPage();
+              yPosition = 10;
+            }
+            const children = Array.from(
+              node.querySelector(".children").children
+            );
+            children.forEach((childNode) => addNodeToPdf(childNode, level + 1));
+          }
+
+          Array.from(treeContainer.children).forEach((rootNode) =>
+            addNodeToPdf(rootNode)
+          );
+          pdf.save("tree-structure.pdf");
+        });
+
+        defaultRootNodes.forEach((nodeLabel) => {
+          createNodeElement(nodeLabel);
+        });
+      });
+    </script>
+  </body>
+</html>
